@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Cipher
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         public Bitmap output;
         public Point center;
@@ -19,36 +19,54 @@ namespace Cipher
         public string[] alphs;
         public CipherType cipher;
 
-        private Bitmap paperBmp, woodBmp, metalBmp;
+        private Bitmap paperBmp, woodBmp, metalBmp, bronzeBmp;
 
         public static Brush black = new Pen(Color.Black).Brush,
                     white = new Pen(Color.White).Brush;
 
-        public Form1()
+        public static Pen paperPen = new Pen(Color.Black);
+        public static Pen metalPen = new Pen(Color.FromArgb(192, Color.Black), 3);
+        public static Pen woodPen = new Pen(Color.FromArgb(0x80, 0x40, 0x20), 3);
+        public static Pen bronzePen = new Pen(Color.FromArgb(0x80, 0x40, 0x20), 3);//new Pen(Color.FromArgb(0xE2, 0xA5, 0x6F), 3);
+
+        public MainForm()
         {
             InitializeComponent();
         }
 
-        public void selectTexture(string texture)
+        /*public void selectTexture(string texture)
         {
             switch (texture)
             {
                 case "Бумага":
-                    cipher = new Paper(this);
+                    cipher.pen = paperPen;
+                    cipher.brush = paperPen.Brush;
                     cipher.bmp = paperBmp;
+                    cipher.material = MaterialName.Paper;
                     break;
 
                 case "Дерево":
-                    cipher = new Wood(this);
+                    cipher.pen = woodPen;
+                    cipher.brush = woodPen.Brush;
                     cipher.bmp = woodBmp;
+                    cipher.material = MaterialName.Wood;
                     break;
 
                 case "Металл":
-                    cipher = new Metal(this);
+                    cipher.pen = metalPen;
+                    cipher.brush = metalPen.Brush;
                     cipher.bmp = metalBmp;
+                    cipher.material = MaterialName.Metal;
+                    break;
+
+                case "Бронза":
+                    cipher.pen = bronzePen;
+                    cipher.brush = bronzePen.Brush;
+                    cipher.bmp = bronzeBmp;
+                    cipher.material = MaterialName.Bronze;
                     break;
             }
-        }
+        }*/
 
         public void updateRings()
         {
@@ -58,7 +76,7 @@ namespace Cipher
             for (int i = 1; i < ringCount; ++i)
                 cipher.inscribe(i);
             cipher.refreshAllRings();
-            pictureBox1.Refresh();
+            mainPictureBox.Refresh();
         }
 
         private void changeDisks(object sender, EventArgs e)
@@ -68,25 +86,31 @@ namespace Cipher
             dialog.ShowDialog();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void mainForm_Load(object sender, EventArgs e)
         {
             MenuItem[] items = new MenuItem[1] { new MenuItem("Изменить шифратор", new EventHandler(changeDisks)) };
             this.Menu = new MainMenu(items);
-            cipher = new Paper(this);
+            mainPictureBox.BackColor = Color.FromArgb(255, Color.Black);
+
             paperBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Бумага.jpg", true);
             woodBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Дерево.jpg", true);
             //wood.bmp2 = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Дерево 2.jpg", true);
             metalBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Металл 2.jpg", true);
-            center = new Point(pictureBox1.Width / 2, pictureBox1.Height / 2);
+            bronzeBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Медь.jpg", true);
+            center = new Point(mainPictureBox.Width / 2, mainPictureBox.Height / 2);
             paperBmp = new Bitmap(paperBmp, new Size(400, 400));
             woodBmp = new Bitmap(woodBmp, new Size(400, 400));
             //wood.bmp2 = new Bitmap(wood.bmp2, new Size(400, 400));
             metalBmp = new Bitmap(metalBmp, new Size(400, 400));
-            output = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            selectTexture("Металл");
+            bronzeBmp = new Bitmap(bronzeBmp, new Size(400, 400));
+            output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
             alphs = new string[ringCount];
             for (int i = 1; i < ringCount; ++i)
                 alphs[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            CipherSetup setup = CipherSetup.createCustomSetup(Material.createMaterialByName("Бумага"),
+                                                               6,
+                                                               alphs);
+            cipher = new CipherType(this, setup);
             updateRings();
         }
 
@@ -97,7 +121,7 @@ namespace Cipher
             g.TranslateTransform(-x, -y);
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void mainPictureBox_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(output, 0, 0);
         }
@@ -106,7 +130,7 @@ namespace Cipher
         bool mouseDown = false;
         double currentAngle = 0;
 
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        private void mainPictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             int dx = e.X - center.X, dy = e.Y - center.Y;
             int maxDist = ringWidth * ringCount,
@@ -121,7 +145,7 @@ namespace Cipher
             mouseDown = true;
         }
 
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        private void mainPictureBox_MouseUp(object sender, MouseEventArgs e)
         {
             if (!mouseDown)
                 return;
@@ -129,11 +153,11 @@ namespace Cipher
             shift %= alphs[selectedRing].Length;
             flrot[selectedRing] = (float)shift / alphs[selectedRing].Length * 360;
             cipher.refreshRing(selectedRing);
-            pictureBox1.Refresh();
+            mainPictureBox.Refresh();
             mouseDown = false;
         }
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        private void mainPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (!mouseDown)
                 return;
@@ -141,7 +165,7 @@ namespace Cipher
             double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
             flrot[selectedRing] = (float)((newAngle - currentAngle) * 180 / Math.PI);
             cipher.refreshRing(selectedRing);
-            pictureBox1.Refresh();
+            mainPictureBox.Refresh();
         }
     }
 }

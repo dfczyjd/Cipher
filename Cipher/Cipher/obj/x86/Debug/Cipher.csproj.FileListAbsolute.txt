@@ -6,3 +6,4 @@ C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\obj\x86\Debug\Ciphe
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\obj\x86\Debug\Cipher.exe
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\obj\x86\Debug\Cipher.pdb
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\obj\x86\Debug\Cipher.Form2.resources
+C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\obj\x86\Debug\Cipher.csprojResolveAssemblyReference.cache

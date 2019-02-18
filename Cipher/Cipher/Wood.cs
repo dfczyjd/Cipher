@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NO_COMPILE
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,7 +16,7 @@ namespace Cipher
         private Bitmap[] sides;
         private int delx = -5, dely = 5;
 
-        public Wood_old(Form1 owner) : base(owner) { }
+        public Wood_old(MainForm owner) : base(owner) { }
 
         private Bitmap cutCircle(Bitmap bmp, int r, int x = 0, int y = 0)
         {
@@ -23,9 +24,9 @@ namespace Cipher
                 tmp = new Bitmap(bmp.Width, bmp.Height);
             using (Graphics g = Graphics.FromImage(tmp))
             {
-                g.FillRectangle(Form1.white, new Rectangle(0, 0, tmp.Width, tmp.Height));
+                g.FillRectangle(MainForm.white, new Rectangle(0, 0, tmp.Width, tmp.Height));
                 g.TranslateTransform(-x, -y);
-                g.FillEllipse(Form1.black, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
+                g.FillEllipse(MainForm.black, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
                 tmp.MakeTransparent(Color.Black);
             }
             using (Graphics g = Graphics.FromImage(result))
@@ -42,7 +43,7 @@ namespace Cipher
             Bitmap result = new Bitmap(bmp);
             using (Graphics g = Graphics.FromImage(result))
             {
-                g.FillEllipse(Form1.white, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
+                g.FillEllipse(MainForm.white, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
             }
             result.MakeTransparent(Color.White);
             return result;
@@ -79,10 +80,10 @@ namespace Cipher
                     float angle = 180.0F / owner.alphs[ringIndex].Length;
                     Font f = new Font("Times New Roman", ringIndex * 2 + 6);
                     float y = bmp.Width / 2 - owner.ringWidth * (ringIndex + 0.5F), x = bmp.Width / 2;
-                    g.DrawString(owner.alphs[ringIndex].Substring(j, 1), f, Form1.black, x - f.SizeInPoints / 2, y - f.Height / 2);
-                    Form1.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
+                    g.DrawString(owner.alphs[ringIndex].Substring(j, 1), f, MainForm.black, x - f.SizeInPoints / 2, y - f.Height / 2);
+                    MainForm.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
                     //g.DrawLine(new Pen(Color.Black), bmp.Width / 2, bmp.Height / 2, bmp.Width / 2, bmp.Width / 2 - owner.ringWidth * (ringIndex + 1));
-                    Form1.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
+                    MainForm.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
                 }
             }
         }
@@ -92,7 +93,7 @@ namespace Cipher
             Bitmap turned;
             using (Graphics res = Graphics.FromImage(owner.output))
             {
-                res.FillRectangle(Form1.white, new Rectangle(new Point(0, 0), owner.output.Size));
+                res.FillRectangle(MainForm.white, new Rectangle(new Point(0, 0), owner.output.Size));
                 for (int i = owner.ringCount - 1; i >= 0; --i)
                 {
                     turned = new Bitmap(bmp.Width, bmp.Height);
@@ -100,7 +101,7 @@ namespace Cipher
                     {
                         if (i != owner.ringCount - 1)
                             g.DrawImage(sides[i], delx * i, dely * i);
-                        Form1.rotate(g, owner.rotations[i], bmp.Width / 2 + delx * i, bmp.Height / 2 + dely * i);
+                        MainForm.rotate(g, owner.rotations[i], bmp.Width / 2 + delx * i, bmp.Height / 2 + dely * i);
                         g.DrawImage(slices[i], delx * i, dely * i);
                     }
                     res.DrawImage(turned, owner.center.X - bmp.Width / 2, owner.center.Y - bmp.Height / 2);
@@ -131,7 +132,12 @@ namespace Cipher
         private static Pen metalPen = new Pen(Color.FromArgb(0x50, 0x20, 0x20), 3);
         private static Brush metalBrush = metalPen.Brush;
 
-        public Wood(Form1 owner) : base(owner) { }
+        public Wood(MainForm owner)
+            : base(owner)
+        {
+            pen = new Pen(Color.FromArgb(0x50, 0x20, 0x20), 3);
+            brush = pen.Brush;
+        }
 
         private Bitmap cutCircle(Bitmap bmp, int r)
         {
@@ -139,8 +145,8 @@ namespace Cipher
                 tmp = new Bitmap(bmp.Width, bmp.Height);
             using (Graphics g = Graphics.FromImage(tmp))
             {
-                g.FillRectangle(Form1.white, new Rectangle(0, 0, tmp.Width, tmp.Height));
-                g.FillEllipse(Form1.black, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
+                g.FillRectangle(MainForm.white, new Rectangle(0, 0, tmp.Width, tmp.Height));
+                g.FillEllipse(MainForm.black, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
                 tmp.MakeTransparent(Color.Black);
             }
             using (Graphics g = Graphics.FromImage(result))
@@ -157,7 +163,7 @@ namespace Cipher
             Bitmap result = new Bitmap(bmp);
             using (Graphics g = Graphics.FromImage(result))
             {
-                g.FillEllipse(Form1.black, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
+                g.FillEllipse(MainForm.black, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
             }
             return result;
         }
@@ -185,9 +191,9 @@ namespace Cipher
                     Font f = new Font("Times New Roman", ringIndex * 2 + 6);
                     float y = bmp.Width / 2 - owner.ringWidth * (ringIndex + 0.5F), x = bmp.Width / 2;
                     g.DrawString(owner.alphs[ringIndex].Substring(j, 1), f, metalBrush, x - f.SizeInPoints / 2, y - f.Height / 2);
-                    Form1.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
+                    MainForm.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
                     g.DrawLine(new Pen(metalBrush, 1), bmp.Width / 2, bmp.Height / 2, bmp.Width / 2, bmp.Width / 2 - owner.ringWidth * (ringIndex + 1));
-                    Form1.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
+                    MainForm.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
                 }
             }
         }
@@ -197,13 +203,13 @@ namespace Cipher
             Bitmap turned;
             using (Graphics res = Graphics.FromImage(owner.output))
             {
-                res.FillRectangle(Form1.white, new Rectangle(new Point(0, 0), owner.output.Size));
+                res.FillRectangle(MainForm.white, new Rectangle(new Point(0, 0), owner.output.Size));
                 for (int i = owner.ringCount - 1; i >= 0; --i)
                 {
                     turned = new Bitmap(bmp.Width, bmp.Height);
                     using (Graphics g = Graphics.FromImage(turned))
                     {
-                        Form1.rotate(g, owner.flrot[i]/*rotations[i] * 360 / (float)owner.alphs[i].Length*/, bmp.Width / 2, bmp.Height / 2);
+                        MainForm.rotate(g, owner.flrot[i]/*rotations[i] * 360 / (float)owner.alphs[i].Length*/, bmp.Width / 2, bmp.Height / 2);
                         g.DrawImage(slices[i], 0, 0);
                         g.DrawImage(texts[i], 0, 0);
                     }
@@ -229,3 +235,4 @@ namespace Cipher
         }
     }
 }
+#endif

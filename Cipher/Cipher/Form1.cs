@@ -14,13 +14,9 @@ namespace Cipher
     {
         public Bitmap output;
         public Point center;
-        public int ringWidth;
         public int[] rotations;
         public float[] flrot;
-        public string[] alphs;
         public CipherType cipher;
-
-        private Bitmap paperBmp, woodBmp, metalBmp, bronzeBmp;
 
         public static Brush black = new Pen(Color.Black).Brush,
                     white = new Pen(Color.White).Brush;
@@ -77,7 +73,7 @@ namespace Cipher
             flrot = new float[ringCount];
             for (int i = 1; i < ringCount; ++i)
                 cipher.inscribe(i);
-            cipher.refreshAllRings();
+            cipher.refreshRings();
             mainPictureBox.Refresh();
         }
 
@@ -95,24 +91,9 @@ namespace Cipher
             this.Menu = new MainMenu(items);
             mainPictureBox.BackColor = Color.FromArgb(255, Color.Black);
 
-            //paperBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Бумага.jpg", true);
-            woodBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Дерево.jpg", true);
-            //wood.bmp2 = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Дерево 2.jpg", true);
-            metalBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Металл 2.jpg", true);
-            bronzeBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Медь.jpg", true);
-            center = new Point(mainPictureBox.Width / 2, mainPictureBox.Height / 2);
-            //paperBmp = new Bitmap(paperBmp, new Size(400, 400));
-            woodBmp = new Bitmap(woodBmp, new Size(400, 400));
-            //wood.bmp2 = new Bitmap(wood.bmp2, new Size(400, 400));
-            metalBmp = new Bitmap(metalBmp, new Size(400, 400));
-            bronzeBmp = new Bitmap(bronzeBmp, new Size(400, 400));
+            center = new Point(Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH);
             output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
-            alphs = new string[6];
-            for (int i = 1; i < 6; ++i)
-                alphs[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            CipherSetup setup = CipherSetup.createCustomSetup(Material.getMaterialByName("Бумага"),
-                                                               6,
-                                                               alphs);
+            CipherSetup setup = CipherSetup.builtInSetups[0];
             cipher = new CipherType(this, setup);
             updateRings();
         }
@@ -136,12 +117,12 @@ namespace Cipher
         private void mainPictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             int dx = e.X - center.X, dy = e.Y - center.Y;
-            int maxDist = ringWidth * cipher.setup.ringCount,
+            int maxDist = Constants.RING_WIDTH * cipher.setup.ringCount,
                 distSq = dx * dx + dy * dy;
             if (distSq >= maxDist * maxDist)
                 return;
             double dist = Math.Sqrt(distSq);
-            selectedRing = (int)Math.Floor(dist / ringWidth);
+            selectedRing = (int)Math.Floor(dist / Constants.RING_WIDTH);
             if (selectedRing == 0)
                 return;
             currentAngle = -flrot[selectedRing] / 180 * Math.PI + Math.Atan2(dy, dx) + Math.PI / 2;
@@ -152,10 +133,10 @@ namespace Cipher
         {
             if (!mouseDown)
                 return;
-            int shift = (int)Math.Round((flrot[selectedRing] / 360 * alphs[selectedRing].Length));
-            shift %= alphs[selectedRing].Length;
-            flrot[selectedRing] = (float)shift / alphs[selectedRing].Length * 360;
-            cipher.refreshRing(selectedRing);
+            int shift = (int)Math.Round((flrot[selectedRing] / 360 * cipher.setup.alphabets[selectedRing].Length));
+            shift %= cipher.setup.alphabets[selectedRing].Length;
+            flrot[selectedRing] = (float)shift / cipher.setup.alphabets[selectedRing].Length * 360;
+            cipher.refreshRings();
             mainPictureBox.Refresh();
             mouseDown = false;
         }
@@ -167,7 +148,7 @@ namespace Cipher
             int dx = e.X - center.X, dy = e.Y - center.Y;
             double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
             flrot[selectedRing] = (float)((newAngle - currentAngle) * 180 / Math.PI);
-            cipher.refreshRing(selectedRing);
+            cipher.refreshRings();
             mainPictureBox.Refresh();
         }
     }

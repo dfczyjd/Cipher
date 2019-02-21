@@ -36,7 +36,7 @@
             this.alphabetsTextBox = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cipherComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.diskCountNumeric)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,21 +115,22 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Шифратор";
             // 
-            // comboBox1
+            // cipherComboBox
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(121, 26);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 9;
+            this.cipherComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cipherComboBox.FormattingEnabled = true;
+            this.cipherComboBox.Location = new System.Drawing.Point(121, 26);
+            this.cipherComboBox.Name = "cipherComboBox";
+            this.cipherComboBox.Size = new System.Drawing.Size(121, 21);
+            this.cipherComboBox.TabIndex = 9;
+            this.cipherComboBox.SelectedIndexChanged += new System.EventHandler(this.cipherComboBox_SelectedIndexChanged);
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 286);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cipherComboBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.alphabetsTextBox);
@@ -157,7 +158,7 @@
         private System.Windows.Forms.TextBox alphabetsTextBox;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cipherComboBox;
 
     }
 }

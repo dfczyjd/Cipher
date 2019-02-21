@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Resources;
 
 namespace Cipher
 {
@@ -13,7 +14,7 @@ namespace Cipher
     {
         public Bitmap output;
         public Point center;
-        public int ringCount = 6, ringWidth;
+        public int ringWidth;
         public int[] rotations;
         public float[] flrot;
         public string[] alphs;
@@ -70,7 +71,8 @@ namespace Cipher
 
         public void updateRings()
         {
-            cipher.slice(cipher.bmp, ringCount);
+            cipher.slice();
+            int ringCount = cipher.setup.ringCount;
             rotations = new int[ringCount];
             flrot = new float[ringCount];
             for (int i = 1; i < ringCount; ++i)
@@ -83,6 +85,7 @@ namespace Cipher
         {
             Form2 dialog = new Form2();
             dialog.owner = this;
+            dialog.cipher = cipher;
             dialog.ShowDialog();
         }
 
@@ -92,22 +95,22 @@ namespace Cipher
             this.Menu = new MainMenu(items);
             mainPictureBox.BackColor = Color.FromArgb(255, Color.Black);
 
-            paperBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Бумага.jpg", true);
+            //paperBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Бумага.jpg", true);
             woodBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Дерево.jpg", true);
             //wood.bmp2 = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Дерево 2.jpg", true);
             metalBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Металл 2.jpg", true);
             bronzeBmp = new Bitmap(@"C:\Users\Home\Documents\ДЗ Вышка\1 КР\Текстуры\Медь.jpg", true);
             center = new Point(mainPictureBox.Width / 2, mainPictureBox.Height / 2);
-            paperBmp = new Bitmap(paperBmp, new Size(400, 400));
+            //paperBmp = new Bitmap(paperBmp, new Size(400, 400));
             woodBmp = new Bitmap(woodBmp, new Size(400, 400));
             //wood.bmp2 = new Bitmap(wood.bmp2, new Size(400, 400));
             metalBmp = new Bitmap(metalBmp, new Size(400, 400));
             bronzeBmp = new Bitmap(bronzeBmp, new Size(400, 400));
             output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
-            alphs = new string[ringCount];
-            for (int i = 1; i < ringCount; ++i)
+            alphs = new string[6];
+            for (int i = 1; i < 6; ++i)
                 alphs[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            CipherSetup setup = CipherSetup.createCustomSetup(Material.createMaterialByName("Бумага"),
+            CipherSetup setup = CipherSetup.createCustomSetup(Material.getMaterialByName("Бумага"),
                                                                6,
                                                                alphs);
             cipher = new CipherType(this, setup);
@@ -133,7 +136,7 @@ namespace Cipher
         private void mainPictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             int dx = e.X - center.X, dy = e.Y - center.Y;
-            int maxDist = ringWidth * ringCount,
+            int maxDist = ringWidth * cipher.setup.ringCount,
                 distSq = dx * dx + dy * dy;
             if (distSq >= maxDist * maxDist)
                 return;

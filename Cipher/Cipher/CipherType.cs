@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Cipher.Properties;
 
 namespace Cipher
 {
@@ -14,45 +15,59 @@ namespace Cipher
         Paper, Wood, Metal, Bronze
     }
 
-    public struct Material
+    public class Material
     {
+        const int WIDTH = 400, HEIGHT = 400;
+
+        public static Material paper, wood, metal, bronze;
         public MaterialName name;
         public Bitmap texture;
-        public Color color;
+        public Pen pen;
+        public Brush brush;
 
-        public static Material createMaterialByName(string RussianName)
+        static Material()
         {
-            Material obj = new Material();
+            paper = new Material();
+            paper.name = MaterialName.Paper;
+            paper.pen = MainForm.paperPen;
+            paper.brush = MainForm.paperPen.Brush;
+            paper.texture = new Bitmap(Resources.paperTexture, WIDTH, HEIGHT);
+            wood = new Material();
+            wood.name = MaterialName.Wood;
+            wood.pen = MainForm.woodPen;
+            wood.brush = MainForm.woodPen.Brush;
+            wood.texture = new Bitmap(Resources.woodTexture, WIDTH, HEIGHT);
+            metal = new Material();
+            metal.name = MaterialName.Metal;
+            metal.pen = MainForm.metalPen;
+            metal.brush = MainForm.metalPen.Brush;
+            metal.texture = new Bitmap(Resources.metalTexture, WIDTH, HEIGHT);
+            bronze = new Material();
+            bronze.name = MaterialName.Bronze;
+            bronze.pen = MainForm.bronzePen;
+            bronze.brush = MainForm.bronzePen.Brush;
+            bronze.texture = new Bitmap(Resources.bronzeTexture, WIDTH, HEIGHT);
+        }
+
+        public static Material getMaterialByName(string RussianName)
+        {
             switch (RussianName)
             {
                 case "Бумага":
-                    obj.name = MaterialName.Paper;
-                    obj.texture = null;
-                    obj.color = MainForm.paperPen.Color;
-                    break;
+                    return paper;
 
                 case "Дерево":
-                    obj.name = MaterialName.Wood;
-                    obj.texture = null;
-                    obj.color = MainForm.woodPen.Color;
-                    break;
+                    return wood;
 
                 case "Металл":
-                    obj.name = MaterialName.Metal;
-                    obj.texture = null;
-                    obj.color = MainForm.metalPen.Color;
-                    break;
+                    return metal;
 
                 case "Бронза":
-                    obj.name = MaterialName.Bronze;
-                    obj.texture = null;
-                    obj.color = MainForm.bronzePen.Color;
-                    break;
+                    return bronze;
 
                 default:
                     throw new InvalidEnumArgumentException(string.Format("Материал {0} не существует", RussianName));
             }
-            return obj;
         }
 
         public string getName()
@@ -75,7 +90,7 @@ namespace Cipher
         }
     }
 
-    public struct CipherSetup
+    public class CipherSetup
     {
         public Material material;
         public int ringCount;
@@ -93,11 +108,10 @@ namespace Cipher
 
     public class CipherType
     {
+        const int WIDTH = 400, HEIGHT = 400;
+
         protected MainForm owner;
-        public Bitmap bmp;
         protected Bitmap[] slices;
-        public Pen pen;
-        public Brush brush;
         public CipherSetup setup;
 
         public CipherType(MainForm owner, CipherSetup setup)
@@ -119,7 +133,7 @@ namespace Cipher
             using (Graphics g = Graphics.FromImage(result))
             {
                 g.DrawImage(tmp, 0, 0);
-                g.DrawEllipse(pen, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
+                g.DrawEllipse(setup.material.pen, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
             }
             result.MakeTransparent(Color.White);
             return result;
@@ -135,13 +149,13 @@ namespace Cipher
             return result;
         }
 
-        public virtual void slice(Bitmap bmp, int pieces)
+        public virtual void slice()
         {
-            slices = new Bitmap[pieces];
+            slices = new Bitmap[setup.ringCount];
             owner.ringWidth = 30;// bmp.Width / pieces / 2;
-            for (int i = 0; i < pieces; ++i)
+            for (int i = 0; i < setup.ringCount; ++i)
             {
-                slices[i] = removeCircle(bmp, owner.ringWidth * i);
+                slices[i] = removeCircle(setup.material.texture, owner.ringWidth * i);
                 slices[i] = cutCircle(slices[i], owner.ringWidth * (i + 1));
             }
         }
@@ -154,11 +168,11 @@ namespace Cipher
                 {
                     float angle = 180.0F / owner.alphs[ringIndex].Length;
                     Font f = new Font("Times New Roman", ringIndex * 2 + 6);
-                    float y = bmp.Width / 2 - owner.ringWidth * (ringIndex + 0.5F), x = bmp.Width / 2;
-                    g.DrawString(owner.alphs[ringIndex].Substring(j, 1), f, brush, x - f.SizeInPoints / 2, y - f.Height / 2);
-                    MainForm.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
-                    g.DrawLine(new Pen(brush, 1), bmp.Width / 2, bmp.Height / 2, bmp.Width / 2, bmp.Width / 2 - owner.ringWidth * (ringIndex + 1));
-                    MainForm.rotate(g, angle, bmp.Width / 2, bmp.Height / 2);
+                    float y = WIDTH / 2 - owner.ringWidth * (ringIndex + 0.5F), x = WIDTH / 2;
+                    g.DrawString(owner.alphs[ringIndex].Substring(j, 1), f, setup.material.brush, x - f.SizeInPoints / 2, y - f.Height / 2);
+                    MainForm.rotate(g, angle, WIDTH / 2, HEIGHT / 2);
+                    g.DrawLine(new Pen(setup.material.brush, 1), WIDTH / 2, HEIGHT / 2, WIDTH / 2, WIDTH / 2 - owner.ringWidth * (ringIndex + 1));
+                    MainForm.rotate(g, angle, WIDTH / 2, HEIGHT / 2);
                 }
             }
         }
@@ -169,15 +183,15 @@ namespace Cipher
             using (Graphics res = Graphics.FromImage(owner.output))
             {
                 res.FillRectangle(MainForm.white, new Rectangle(new Point(0, 0), owner.output.Size));
-                for (int i = owner.ringCount - 1; i >= 0; --i)
+                for (int i = setup.ringCount - 1; i >= 0; --i)
                 {
-                    turned = new Bitmap(bmp.Width, bmp.Height);
+                    turned = new Bitmap(WIDTH, HEIGHT);
                     using (Graphics g = Graphics.FromImage(turned))
                     {
-                        MainForm.rotate(g, owner.flrot[i]/*rotations[i] * 360 / (float)owner.alphs[i].Length*/, bmp.Width / 2, bmp.Height / 2);
+                        MainForm.rotate(g, owner.flrot[i], WIDTH / 2, HEIGHT / 2);
                         g.DrawImage(slices[i], 0, 0);
                     }
-                    res.DrawImage(turned, owner.center.X - bmp.Width / 2, owner.center.Y - bmp.Height / 2);
+                    res.DrawImage(turned, owner.center.X - WIDTH / 2, owner.center.Y - HEIGHT / 2);
                 }
             }
         }

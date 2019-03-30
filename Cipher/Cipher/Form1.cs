@@ -85,10 +85,25 @@ namespace Cipher
             dialog.ShowDialog();
         }
 
+        private void showAbout(object sender, EventArgs e)
+        {
+            AboutForm dialog = new AboutForm();
+            dialog.ShowDialog();
+        }
+
+        private void showHistory(object sender, EventArgs e)
+        {
+            HistoryForm dialog = new HistoryForm();
+            dialog.ShowDialog();
+        }
+
         private void mainForm_Load(object sender, EventArgs e)
         {
-            MenuItem[] items = new MenuItem[1] { new MenuItem("Изменить шифратор", new EventHandler(changeDisks)) };
-            this.Menu = new MainMenu(items);
+            MenuItem[] info = new MenuItem[2] { new MenuItem("История шифрования", showHistory),
+                                                new MenuItem("О программе", showAbout) };
+            MenuItem[] main = new MenuItem[2] { new MenuItem("Изменить шифратор", new EventHandler(changeDisks)),
+                                                 new MenuItem("Справка", info) };
+            this.Menu = new MainMenu(main);
             mainPictureBox.BackColor = Color.FromArgb(255, Color.Black);
 
             center = new Point(Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH);

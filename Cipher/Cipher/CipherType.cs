@@ -187,7 +187,7 @@ namespace Cipher
                 for (int j = 0; j < setup.alphabets[ringIndex].Length; ++j)
                 {
                     float angle = 180.0F / setup.alphabets[ringIndex].Length;
-                    Font f = new Font("Times New Roman", ringIndex * 2 + 6);
+                    Font f = new Font("Consolas", ringIndex * 2 + 6);
                     float y = Constants.HALF_IMAGE_WIDTH - Constants.RING_WIDTH * (ringIndex + 0.5F), x = Constants.HALF_IMAGE_WIDTH;
                     g.DrawString(setup.alphabets[ringIndex].Substring(j, 1), f, setup.material.brush, x - f.SizeInPoints / 2, y - f.Height / 2);
                     MainForm.rotate(g, angle, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);

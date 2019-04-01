@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.FileIO;
 using Cipher.Properties;
 
 namespace Cipher
@@ -107,7 +108,53 @@ namespace Cipher
 
         static CipherSetup()
         {
-            // TODO: загружать из внешнего списка
+            // TODO: настроить путь
+            try
+            {
+                using (TextFieldParser parser = new TextFieldParser("../../config.csv"))
+                {
+                    int setupCount = int.Parse(parser.ReadLine());
+                    parser.SetDelimiters(";");
+                    builtInSetups = new CipherSetup[setupCount];
+                    for (int i = 0; i < setupCount; ++i)
+                    {
+                        string[] data = parser.ReadFields();
+                        CipherSetup setup = new CipherSetup();
+                        setup.name = data[0];
+                        switch (data[1])
+                        {
+                            case "Бумага":
+                                setup.material = Material.paper;
+                                break;
+
+                            case "Дерево":
+                                setup.material = Material.wood;
+                                break;
+
+                            case "Металл":
+                                setup.material = Material.metal;
+                                break;
+
+                            case "Бронза":
+                                setup.material = Material.bronze;
+                                break;
+
+                            default:
+                                throw new FormatException($"Материала под названием {data[1]} (строка {i}) не существует.");
+                        }
+                        setup.ringCount = int.Parse(data[2]);
+                        setup.alphabets = new string[setup.ringCount];
+                        for (int j = 1; j < setup.ringCount; ++j)
+                            setup.alphabets[j] = data[j + 2];
+                        builtInSetups[i] = setup;
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Не удалось загрузить встроенный набор шифраторов.");
+            }
+            /*
             builtInSetups = new CipherSetup[4];
             string[] alphs = new string[Constants.DEFAULT_RING_COUNT];
             for (int i = 0; i < Constants.DEFAULT_RING_COUNT; ++i)
@@ -116,6 +163,7 @@ namespace Cipher
             builtInSetups[1] = createSetup(Material.wood, Constants.DEFAULT_RING_COUNT, alphs, "Деревянный тестовый");
             builtInSetups[2] = createSetup(Material.metal, Constants.DEFAULT_RING_COUNT, alphs, "Металлический тестовый");
             builtInSetups[3] = createSetup(Material.bronze, Constants.DEFAULT_RING_COUNT, alphs, "Бронзовый тестовый");
+            */
         }
 
         public static CipherSetup getSetupByName(string name)

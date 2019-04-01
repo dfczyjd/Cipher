@@ -44,12 +44,12 @@ namespace Cipher
                         return;
                     }
                 }
-                cipher.setup = CipherSetup.createSetup(Material.getMaterialByName(textureComboBox.Text),
+                cipher.Setup = CipherSetup.createSetup(Material.getMaterialByName(textureComboBox.Text),
                                                                newRingCount + 1,
                                                                tmp);
             }
             else
-                cipher.setup = CipherSetup.builtInSetups[cipherComboBox.SelectedIndex];
+                cipher.Setup = CipherSetup.builtInSetups[cipherComboBox.SelectedIndex];
             owner.updateRings();
             this.Close();
         }
@@ -71,8 +71,8 @@ namespace Cipher
             foreach (var setup in CipherSetup.builtInSetups)
                 cipherComboBox.Items.Add(setup.name);
             cipherComboBox.Items.Add(Constants.CUSTOM_SETUP_NAME);
-            loadParams(cipher.setup);
-            cipherComboBox.SelectedItem = cipher.setup.name;
+            loadParams(cipher.Setup);
+            cipherComboBox.SelectedItem = cipher.Setup.name;
         }
 
         private void cipherComboBox_SelectedIndexChanged(object sender, EventArgs e)

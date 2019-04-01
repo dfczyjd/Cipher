@@ -97,6 +97,14 @@ namespace Cipher
         public int ringCount;
         public string[] alphabets;
 
+        public float WindowAngle
+        {
+            get
+            {
+                return 240f / alphabets[1].Length;
+            }
+        }
+
         static CipherSetup()
         {
             // TODO: загружать из внешнего списка
@@ -133,12 +141,29 @@ namespace Cipher
     {
         private MainForm owner;
         private Bitmap[] slices;
-        public CipherSetup setup;
+        private Bitmap window;
+        private CipherSetup setup;
+
+        public CipherSetup Setup
+        {
+            get
+            {
+                return setup;
+            }
+
+            set
+            {
+                setup = value;
+                window = new Bitmap((int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 2f / 3)),
+                                     (int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 2f / 3)));
+                cutWindow();
+            }
+        }
 
         public CipherType(MainForm owner, CipherSetup setup)
         {
             this.owner = owner;
-            this.setup = setup;
+            this.Setup = setup;
         }
 
         private Bitmap cutCircle(Bitmap bmp, int r)
@@ -154,7 +179,7 @@ namespace Cipher
             using (Graphics g = Graphics.FromImage(result))
             {
                 g.DrawImage(tmp, 0, 0);
-                g.DrawEllipse(setup.material.pen, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
+                g.DrawEllipse(Setup.material.pen, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
             }
             result.MakeTransparent(Color.White);
             return result;
@@ -170,33 +195,47 @@ namespace Cipher
             return result;
         }
 
+        private void cutWindow()
+        {
+            float delta = Setup.WindowAngle;
+            using (Graphics g = Graphics.FromImage(window))
+            {
+                g.FillPie(Setup.material.brush, 0, 0, window.Width, window.Height, -90 - delta, 2 * delta);
+                g.FillPie(MainForm.white, 20, 10, window.Width - 40, window.Height - 40, -90 - delta * 2 / 3, delta * 4 / 3);
+                window.MakeTransparent(Color.White);
+            }
+        }
+
         public void slice()
         {
-            slices = new Bitmap[setup.ringCount];
-            for (int i = 0; i < setup.ringCount; ++i)
+            slices = new Bitmap[Setup.ringCount];
+            for (int i = 0; i < Setup.ringCount; ++i)
             {
-                slices[i] = removeCircle(setup.material.texture, Constants.RING_WIDTH * i);
+                slices[i] = removeCircle(Setup.material.texture, Constants.RING_WIDTH * i);
                 slices[i] = cutCircle(slices[i], Constants.RING_WIDTH * (i + 1));
             }
+            cutWindow();
         }
 
         public void inscribe(int ringIndex)
         {
             using (Graphics g = Graphics.FromImage(slices[ringIndex]))
             {
-                for (int j = 0; j < setup.alphabets[ringIndex].Length; ++j)
+                for (int j = 0; j < Setup.alphabets[ringIndex].Length; ++j)
                 {
-                    float angle = 180.0F / setup.alphabets[ringIndex].Length;
+                    float angle = 180.0F / Setup.alphabets[ringIndex].Length;
                     Font f = new Font("Consolas", ringIndex * 2 + 6);
                     float y = Constants.HALF_IMAGE_WIDTH - Constants.RING_WIDTH * (ringIndex + 0.5F), x = Constants.HALF_IMAGE_WIDTH;
-                    g.DrawString(setup.alphabets[ringIndex].Substring(j, 1), f, setup.material.brush, x - f.SizeInPoints / 2, y - f.Height / 2);
+                    g.DrawString(Setup.alphabets[ringIndex].Substring(j, 1), f, Setup.material.brush, x - f.SizeInPoints / 2, y - f.Height / 2);
                     MainForm.rotate(g, angle, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
-                    g.DrawLine(new Pen(setup.material.brush, 1), Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT,
+                    g.DrawLine(new Pen(Setup.material.brush, 1), Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT,
                         Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH - Constants.RING_WIDTH * (ringIndex + 1));
                     MainForm.rotate(g, angle, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
                 }
             }
         }
+
+        static int iterationCount = 0;
 
         public void refreshRings()
         {
@@ -204,7 +243,7 @@ namespace Cipher
             using (Graphics res = Graphics.FromImage(owner.output))
             {
                 res.FillRectangle(MainForm.white, new Rectangle(new Point(0, 0), owner.output.Size));
-                for (int i = setup.ringCount - 1; i >= 0; --i)
+                for (int i = Setup.ringCount - 1; i >= 0; --i)
                 {
                     turned = new Bitmap(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
                     using (Graphics g = Graphics.FromImage(turned))
@@ -214,7 +253,17 @@ namespace Cipher
                     }
                     res.DrawImage(turned, owner.center.X - Constants.HALF_IMAGE_WIDTH, owner.center.Y - Constants.HALF_IMAGE_HEIGHT);
                 }
+                turned = new Bitmap(window.Width, window.Height);
+                using (Graphics g = Graphics.FromImage(turned))
+                {
+                    MainForm.rotate(g, owner.windowRotation, window.Width / 2, window.Height / 2);
+                    g.DrawImage(window, 0, 0);
+                }
+                res.DrawImage(turned, Constants.HALF_IMAGE_WIDTH - window.Width / 2, Constants.HALF_IMAGE_HEIGHT - window.Height / 2);
             }
+            ++iterationCount;
+            if (iterationCount % 100 == 0)
+                GC.Collect();
         }
     }
 }

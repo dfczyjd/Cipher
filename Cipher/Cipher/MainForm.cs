@@ -16,6 +16,7 @@ namespace Cipher
         public Point center;
         public int[] rotations;
         public float[] flrot;
+        public float windowRotation;
         public CipherType cipher;
 
         public static Brush black = new Pen(Color.Black).Brush,
@@ -34,9 +35,10 @@ namespace Cipher
         public void updateRings()
         {
             cipher.slice();
-            int ringCount = cipher.setup.ringCount;
+            int ringCount = cipher.Setup.ringCount;
             rotations = new int[ringCount];
             flrot = new float[ringCount];
+            windowRotation = 0;
             for (int i = 1; i < ringCount; ++i)
                 cipher.inscribe(i);
             cipher.refreshRings();
@@ -98,15 +100,27 @@ namespace Cipher
         private void mainPictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             int dx = e.X - center.X, dy = e.Y - center.Y;
-            int maxDist = Constants.RING_WIDTH * cipher.setup.ringCount,
-                distSq = dx * dx + dy * dy;
-            if (distSq >= maxDist * maxDist)
-                return;
+            float maxDist = Constants.RING_WIDTH * cipher.Setup.ringCount;
+            int distSq = dx * dx + dy * dy;
             double dist = Math.Sqrt(distSq);
             selectedRing = (int)Math.Floor(dist / Constants.RING_WIDTH);
             if (selectedRing == 0)
                 return;
-            currentAngle = -flrot[selectedRing] / 180 * Math.PI + Math.Atan2(dy, dx) + Math.PI / 2;
+            float mouseAngle = (float)(Math.Atan2(dy, dx) + Math.PI / 2);
+            if (Math.Abs(mouseAngle / Math.PI * 180 - windowRotation) < cipher.Setup.WindowAngle)
+            {
+                maxDist += Constants.RING_WIDTH * 0.5f;
+                if (distSq >= maxDist * maxDist)
+                    return;
+                selectedRing = 0;
+                currentAngle = -windowRotation / 180 * Math.PI + mouseAngle;
+            }
+            else
+            {
+                if (distSq >= maxDist * maxDist)
+                    return;
+                currentAngle = -flrot[selectedRing] / 180 * Math.PI + mouseAngle;
+            }
             mouseDown = true;
         }
 
@@ -114,9 +128,19 @@ namespace Cipher
         {
             if (!mouseDown)
                 return;
-            int shift = (int)Math.Round((flrot[selectedRing] / 360 * cipher.setup.alphabets[selectedRing].Length));
-            shift %= cipher.setup.alphabets[selectedRing].Length;
-            flrot[selectedRing] = (float)shift / cipher.setup.alphabets[selectedRing].Length * 360;
+            int shift;
+            if (selectedRing == 0)
+            {
+                shift = (int)Math.Round((windowRotation / 360 * cipher.Setup.alphabets[1].Length));
+                shift %= cipher.Setup.alphabets[1].Length;
+                windowRotation = (float)shift / cipher.Setup.alphabets[1].Length * 360;
+            }
+            else
+            {
+                shift = (int)Math.Round((flrot[selectedRing] / 360 * cipher.Setup.alphabets[selectedRing].Length));
+                shift %= cipher.Setup.alphabets[selectedRing].Length;
+                flrot[selectedRing] = (float)shift / cipher.Setup.alphabets[selectedRing].Length * 360;
+            }
             cipher.refreshRings();
             mainPictureBox.Refresh();
             mouseDown = false;
@@ -126,9 +150,18 @@ namespace Cipher
         {
             if (!mouseDown)
                 return;
-            int dx = e.X - center.X, dy = e.Y - center.Y;
-            double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
-            flrot[selectedRing] = (float)((newAngle - currentAngle) * 180 / Math.PI);
+            if (selectedRing == 0)
+            {
+                int dx = e.X - center.X, dy = e.Y - center.Y;
+                double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
+                windowRotation = (float)((newAngle - currentAngle) * 180 / Math.PI);
+            }
+            else
+            {
+                int dx = e.X - center.X, dy = e.Y - center.Y;
+                double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
+                flrot[selectedRing] = (float)((newAngle - currentAngle) * 180 / Math.PI);
+            }
             cipher.refreshRings();
             mainPictureBox.Refresh();
         }

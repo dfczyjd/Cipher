@@ -34,10 +34,15 @@
             // 
             // mainPictureBox
             // 
-            this.mainPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.mainPictureBox.Location = new System.Drawing.Point(212, 12);
+            this.mainPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainPictureBox.BackColor = System.Drawing.Color.White;
+            this.mainPictureBox.InitialImage = null;
+            this.mainPictureBox.Location = new System.Drawing.Point(283, 15);
+            this.mainPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.mainPictureBox.Name = "mainPictureBox";
-            this.mainPictureBox.Size = new System.Drawing.Size(400, 400);
+            this.mainPictureBox.Size = new System.Drawing.Size(533, 492);
             this.mainPictureBox.TabIndex = 4;
             this.mainPictureBox.TabStop = false;
             this.mainPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPictureBox_Paint);
@@ -45,15 +50,19 @@
             this.mainPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseMove);
             this.mainPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseUp);
             // 
-            // mainForm
+            // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 515);
+            this.BackgroundImage = global::Cipher.Properties.Resources.background;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1117, 634);
             this.Controls.Add(this.mainPictureBox);
-            this.Name = "mainForm";
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.mainForm_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
             this.ResumeLayout(false);
 

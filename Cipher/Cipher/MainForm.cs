@@ -146,6 +146,12 @@ namespace Cipher
             mouseDown = false;
         }
 
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            mainPictureBox.Location = new Point((this.Width - mainPictureBox.Size.Width) / 2,
+                                                (this.Height - mainPictureBox.Size.Height) / 2);
+        }
+
         private void mainPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (!mouseDown)

@@ -288,7 +288,7 @@ namespace Cipher
             Bitmap turned;
             using (Graphics res = Graphics.FromImage(owner.output))
             {
-                res.FillRectangle(MainForm.white, new Rectangle(new Point(0, 0), owner.output.Size));
+                res.FillRectangle(MainForm.white, new Rectangle(new Point(0, 0), owner.output.Size));                
                 for (int i = Setup.ringCount - 1; i >= 0; --i)
                 {
                     turned = new Bitmap(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
@@ -307,6 +307,8 @@ namespace Cipher
                 }
                 res.DrawImage(turned, Constants.HALF_IMAGE_WIDTH - window.Width / 2, Constants.HALF_IMAGE_HEIGHT - window.Height / 2);
             }
+            owner.output.MakeTransparent(Color.White);
+            //owner.output.MakeTransparent(Color.Black);
             ++iterationCount;
             if (iterationCount % 100 == 0)
                 GC.Collect();

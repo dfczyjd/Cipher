@@ -109,12 +109,20 @@ namespace Cipher
         static CipherSetup()
         {
             // TODO: настроить путь
-            try
+            builtInSetups = new CipherSetup[4];
+            string[] alphs = new string[Constants.DEFAULT_RING_COUNT];
+            for (int i = 0; i < Constants.DEFAULT_RING_COUNT; ++i)
+                alphs[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            builtInSetups[0] = createSetup(Material.paper, Constants.DEFAULT_RING_COUNT, alphs, "Бумажный тестовый");
+            builtInSetups[1] = createSetup(Material.wood, Constants.DEFAULT_RING_COUNT, alphs, "Деревянный тестовый");
+            builtInSetups[2] = createSetup(Material.metal, Constants.DEFAULT_RING_COUNT, alphs, "Металлический тестовый");
+            builtInSetups[3] = createSetup(Material.bronze, Constants.DEFAULT_RING_COUNT, alphs, "Бронзовый тестовый");
+            /*try
             {
-                using (TextFieldParser parser = new TextFieldParser("../../config.csv"))
+                using (TextFieldParser parser = new TextFieldParser("../../config.csv", Encoding.UTF8))
                 {
                     int setupCount = int.Parse(parser.ReadLine());
-                    parser.SetDelimiters(";");
+                    parser.SetDelimiters("\t", ";");
                     builtInSetups = new CipherSetup[setupCount];
                     for (int i = 0; i < setupCount; ++i)
                     {
@@ -140,7 +148,7 @@ namespace Cipher
                                 break;
 
                             default:
-                                throw new FormatException($"Материала под названием {data[1]} (строка {i}) не существует.");
+                                throw new FormatException("Материала под названием {data[1]} (строка {i}) не существует.");
                         }
                         setup.ringCount = int.Parse(data[2]);
                         setup.alphabets = new string[setup.ringCount];
@@ -152,18 +160,16 @@ namespace Cipher
             }
             catch
             {
-                MessageBox.Show("Не удалось загрузить встроенный набор шифраторов.");
-            }
-            /*
-            builtInSetups = new CipherSetup[4];
-            string[] alphs = new string[Constants.DEFAULT_RING_COUNT];
-            for (int i = 0; i < Constants.DEFAULT_RING_COUNT; ++i)
-                alphs[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            builtInSetups[0] = createSetup(Material.paper, Constants.DEFAULT_RING_COUNT, alphs, "Бумажный тестовый");
-            builtInSetups[1] = createSetup(Material.wood, Constants.DEFAULT_RING_COUNT, alphs, "Деревянный тестовый");
-            builtInSetups[2] = createSetup(Material.metal, Constants.DEFAULT_RING_COUNT, alphs, "Металлический тестовый");
-            builtInSetups[3] = createSetup(Material.bronze, Constants.DEFAULT_RING_COUNT, alphs, "Бронзовый тестовый");
-            */
+                builtInSetups = new CipherSetup[4];
+                string[] alphs = new string[Constants.DEFAULT_RING_COUNT];
+                for (int i = 0; i < Constants.DEFAULT_RING_COUNT; ++i)
+                    alphs[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                builtInSetups[0] = createSetup(Material.paper, Constants.DEFAULT_RING_COUNT, alphs, "Бумажный тестовый");
+                builtInSetups[1] = createSetup(Material.wood, Constants.DEFAULT_RING_COUNT, alphs, "Деревянный тестовый");
+                builtInSetups[2] = createSetup(Material.metal, Constants.DEFAULT_RING_COUNT, alphs, "Металлический тестовый");
+                builtInSetups[3] = createSetup(Material.bronze, Constants.DEFAULT_RING_COUNT, alphs, "Бронзовый тестовый");
+                MessageBox.Show("Не удалось загрузить встроенный набор шифраторов из файла. Загружен стандартный набор.");
+            }*/
         }
 
         public static CipherSetup getSetupByName(string name)
@@ -220,10 +226,10 @@ namespace Cipher
                 tmp = new Bitmap(bmp.Width, bmp.Height);
             using (Graphics g = Graphics.FromImage(tmp))
             {
-                g.FillRectangle(MainForm.white, new Rectangle(0, 0, tmp.Width, tmp.Height));
+                g.FillRectangle(MainForm.white, new Rectangle(0, 0, bmp.Width, bmp.Height));
                 g.FillEllipse(MainForm.black, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
-                tmp.MakeTransparent(Color.Black);
             }
+            tmp.MakeTransparent(Color.Black);
             using (Graphics g = Graphics.FromImage(result))
             {
                 g.DrawImage(tmp, 0, 0);
@@ -261,6 +267,7 @@ namespace Cipher
             {
                 slices[i] = removeCircle(Setup.material.texture, Constants.RING_WIDTH * i);
                 slices[i] = cutCircle(slices[i], Constants.RING_WIDTH * (i + 1));
+                slices[i].Save("../../testImages/slice " + i + ".bmp");
             }
             cutWindow();
         }
@@ -290,7 +297,7 @@ namespace Cipher
             Bitmap turned;
             using (Graphics res = Graphics.FromImage(owner.output))
             {
-                res.FillRectangle(MainForm.white, new Rectangle(new Point(0, 0), owner.output.Size));
+                res.Clear(Color.Transparent);
                 for (int i = Setup.ringCount - 1; i >= 0; --i)
                 {
                     turned = new Bitmap(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);

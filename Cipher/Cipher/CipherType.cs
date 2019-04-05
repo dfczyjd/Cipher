@@ -109,15 +109,7 @@ namespace Cipher
         static CipherSetup()
         {
             // TODO: настроить путь
-            builtInSetups = new CipherSetup[4];
-            string[] alphs = new string[Constants.DEFAULT_RING_COUNT];
-            for (int i = 0; i < Constants.DEFAULT_RING_COUNT; ++i)
-                alphs[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            builtInSetups[0] = createSetup(Material.paper, Constants.DEFAULT_RING_COUNT, alphs, "Бумажный тестовый");
-            builtInSetups[1] = createSetup(Material.wood, Constants.DEFAULT_RING_COUNT, alphs, "Деревянный тестовый");
-            builtInSetups[2] = createSetup(Material.metal, Constants.DEFAULT_RING_COUNT, alphs, "Металлический тестовый");
-            builtInSetups[3] = createSetup(Material.bronze, Constants.DEFAULT_RING_COUNT, alphs, "Бронзовый тестовый");
-            /*try
+            try
             {
                 using (TextFieldParser parser = new TextFieldParser("../../config.csv", Encoding.UTF8))
                 {
@@ -169,7 +161,7 @@ namespace Cipher
                 builtInSetups[2] = createSetup(Material.metal, Constants.DEFAULT_RING_COUNT, alphs, "Металлический тестовый");
                 builtInSetups[3] = createSetup(Material.bronze, Constants.DEFAULT_RING_COUNT, alphs, "Бронзовый тестовый");
                 MessageBox.Show("Не удалось загрузить встроенный набор шифраторов из файла. Загружен стандартный набор.");
-            }*/
+            }
         }
 
         public static CipherSetup getSetupByName(string name)

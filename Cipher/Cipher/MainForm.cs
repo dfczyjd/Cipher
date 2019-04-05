@@ -72,7 +72,7 @@ namespace Cipher
             MenuItem[] main = new MenuItem[2] { new MenuItem("Изменить шифратор", new EventHandler(changeDisks)),
                                                  new MenuItem("Справка", info) };
             this.Menu = new MainMenu(main);
-            mainPictureBox.BackColor = Color.FromArgb(255, Color.Black);
+            mainPictureBox.BackColor = Color.Transparent;
 
             center = new Point(Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH);
             output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);

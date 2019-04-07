@@ -200,8 +200,8 @@ namespace Cipher
             set
             {
                 setup = value;
-                window = new Bitmap((int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 2f / 3)),
-                                     (int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 2f / 3)));
+                window = new Bitmap((int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 3f / 8)),
+                                     (int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 3f / 8)));
                 cutWindow();
             }
         }
@@ -271,7 +271,7 @@ namespace Cipher
                 for (int j = 0; j < Setup.alphabets[ringIndex].Length; ++j)
                 {
                     float angle = 180.0F / Setup.alphabets[ringIndex].Length;
-                    Font f = new Font("Consolas", ringIndex * 2 + 6);
+                    Font f = new Font("Consolas", ringIndex * 2 + 10, FontStyle.Bold);
                     float y = Constants.HALF_IMAGE_WIDTH - Constants.RING_WIDTH * (ringIndex + 0.5F), x = Constants.HALF_IMAGE_WIDTH;
                     g.DrawString(Setup.alphabets[ringIndex].Substring(j, 1), f, Setup.material.brush, x - f.SizeInPoints / 2, y - f.Height / 2);
                     MainForm.rotate(g, angle, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);

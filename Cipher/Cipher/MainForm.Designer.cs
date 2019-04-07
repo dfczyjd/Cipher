@@ -34,9 +34,7 @@
             // 
             // mainPictureBox
             // 
-            this.mainPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainPictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.mainPictureBox.BackColor = System.Drawing.Color.White;
             this.mainPictureBox.InitialImage = null;
             this.mainPictureBox.Location = new System.Drawing.Point(283, 15);
@@ -58,7 +56,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1117, 634);
             this.Controls.Add(this.mainPictureBox);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.mainForm_Load);

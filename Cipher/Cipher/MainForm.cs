@@ -73,6 +73,9 @@ namespace Cipher
                                                  new MenuItem("Справка", info) };
             this.Menu = new MainMenu(main);
             mainPictureBox.BackColor = Color.Transparent;
+            mainPictureBox.Size = new Size(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+            mainPictureBox.Location = new Point((this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
+                                                (this.ClientSize.Height - mainPictureBox.Size.Height) / 2);
 
             center = new Point(Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH);
             output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
@@ -148,8 +151,8 @@ namespace Cipher
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            mainPictureBox.Location = new Point((this.Width - mainPictureBox.Size.Width) / 2,
-                                                (this.Height - mainPictureBox.Size.Height) / 2);
+            mainPictureBox.Location = new Point((this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
+                                                (this.ClientSize.Height - mainPictureBox.Size.Height) / 2);
         }
 
         private void mainPictureBox_MouseMove(object sender, MouseEventArgs e)

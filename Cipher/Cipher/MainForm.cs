@@ -73,6 +73,9 @@ namespace Cipher
                                                  new MenuItem("Справка", info) };
             this.Menu = new MainMenu(main);
             mainPictureBox.BackColor = Color.Transparent;
+            this.Location = new Point(0, 0);
+            this.Size = Screen.GetWorkingArea(this).Size;
+
             mainPictureBox.Size = new Size(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
             mainPictureBox.Location = new Point((this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
                                                 (this.ClientSize.Height - mainPictureBox.Size.Height) / 2);

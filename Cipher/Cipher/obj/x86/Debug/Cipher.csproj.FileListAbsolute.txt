@@ -30,3 +30,4 @@ C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\ob
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.csproj.CoreCompileInputs.cache
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.exe
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.pdb
+C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Debug\Cipher.exe.config

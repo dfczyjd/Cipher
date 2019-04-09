@@ -84,9 +84,19 @@
             // 
             this.diskCountNumeric.Location = new System.Drawing.Point(161, 98);
             this.diskCountNumeric.Margin = new System.Windows.Forms.Padding(4);
+            this.diskCountNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.diskCountNumeric.Name = "diskCountNumeric";
             this.diskCountNumeric.Size = new System.Drawing.Size(47, 22);
             this.diskCountNumeric.TabIndex = 4;
+            this.diskCountNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.diskCountNumeric.ValueChanged += new System.EventHandler(this.diskCountNumeric_ValueChanged);
             // 
             // label3

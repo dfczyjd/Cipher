@@ -109,5 +109,35 @@ namespace Cipher.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset204 Calibri;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c7\&apos;e0\&apos;e3\&apos;ee\&apos;eb\&apos;ee\&apos;e2\&apos;ee\&apos;ea\par
+        ///
+        ///\pard\sa200\sl276\slmult1\b0\f1\fs22\&apos;d2\&apos;e5\&apos;ea\&apos;f1\&apos;f2 \&apos;ed\&apos;ee\&apos;ec\&apos;e5\&apos;f0 1\f2\lang9\par
+        ///}
+        ///.
+        /// </summary>
+        internal static string Заголовок_1 {
+            get {
+                return ResourceManager.GetString("Заголовок_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset204 Calibri;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c4\&apos;f0\&apos;f3\&apos;e3\&apos;ee\&apos;e9 \&apos;e7\&apos;e0\&apos;e3\&apos;ee\&apos;eb\&apos;ee\&apos;e2\&apos;ee\&apos;ea\par
+        ///
+        ///\pard\sa200\sl276\slmult1\b0\f1\fs22\&apos;d2\&apos;e5\&apos;ea\&apos;f1\&apos;f2 \&apos;ed\&apos;ee\&apos;ec\&apos;e5\&apos;f0 2\f2\lang9\par
+        ///}
+        ///.
+        /// </summary>
+        internal static string Заголовок_2 {
+            get {
+                return ResourceManager.GetString("Заголовок_2", resourceCulture);
+            }
+        }
     }
 }

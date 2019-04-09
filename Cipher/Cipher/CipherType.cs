@@ -142,7 +142,7 @@ namespace Cipher
                             default:
                                 throw new FormatException("Материала под названием {data[1]} (строка {i}) не существует.");
                         }
-                        setup.ringCount = int.Parse(data[2]);
+                        setup.ringCount = int.Parse(data[2]) + 1;
                         setup.alphabets = new string[setup.ringCount];
                         for (int j = 1; j < setup.ringCount; ++j)
                             setup.alphabets[j] = data[j + 2];
@@ -259,7 +259,6 @@ namespace Cipher
             {
                 slices[i] = removeCircle(Setup.material.texture, Constants.RING_WIDTH * i);
                 slices[i] = cutCircle(slices[i], Constants.RING_WIDTH * (i + 1));
-                slices[i].Save("../../testImages/slice " + i + ".bmp");
             }
             cutWindow();
         }

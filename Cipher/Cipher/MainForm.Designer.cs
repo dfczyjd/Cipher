@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.mainPictureBox = new System.Windows.Forms.PictureBox();
+            this.inputTextBox = new System.Windows.Forms.TextBox();
+            this.outputTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,6 +50,23 @@
             this.mainPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseMove);
             this.mainPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseUp);
             // 
+            // inputTextBox
+            // 
+            this.inputTextBox.Location = new System.Drawing.Point(13, 15);
+            this.inputTextBox.Multiline = true;
+            this.inputTextBox.Name = "inputTextBox";
+            this.inputTextBox.Size = new System.Drawing.Size(263, 492);
+            this.inputTextBox.TabIndex = 5;
+            this.inputTextBox.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            // 
+            // outputTextBox
+            // 
+            this.outputTextBox.Location = new System.Drawing.Point(842, 15);
+            this.outputTextBox.Multiline = true;
+            this.outputTextBox.Name = "outputTextBox";
+            this.outputTextBox.Size = new System.Drawing.Size(263, 492);
+            this.outputTextBox.TabIndex = 6;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -55,6 +74,8 @@
             this.BackgroundImage = global::Cipher.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1117, 634);
+            this.Controls.Add(this.outputTextBox);
+            this.Controls.Add(this.inputTextBox);
             this.Controls.Add(this.mainPictureBox);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
@@ -63,14 +84,15 @@
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox mainPictureBox;
-
-
+        private System.Windows.Forms.TextBox inputTextBox;
+        private System.Windows.Forms.TextBox outputTextBox;
     }
 }
 

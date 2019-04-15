@@ -156,6 +156,20 @@ namespace Cipher
         {
             mainPictureBox.Location = new Point((this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
                                                 (this.ClientSize.Height - mainPictureBox.Size.Height) / 2);
+            //inputTextBox.Size
+        }
+
+        private void inputTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int inLength = inputTextBox.Text.Length,
+                outLength = outputTextBox.Text.Length;
+            if (inLength < outLength)
+                outputTextBox.Text = outputTextBox.Text.Remove(inLength);
+            else if (outLength < inLength)
+            {
+                for (int i = outLength; i < inLength; ++i)
+                    outputTextBox.Text += cipher.encrypt(inputTextBox.Text[i]);
+            }
         }
 
         private void mainPictureBox_MouseMove(object sender, MouseEventArgs e)

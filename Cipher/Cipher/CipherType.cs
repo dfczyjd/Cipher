@@ -281,8 +281,6 @@ namespace Cipher
             }
         }
 
-        static int iterationCount = 0;
-
         public void refreshRings()
         {
             Bitmap turned;
@@ -298,6 +296,7 @@ namespace Cipher
                         g.DrawImage(slices[i], 0, 0);
                     }
                     res.DrawImage(turned, owner.center.X - Constants.HALF_IMAGE_WIDTH, owner.center.Y - Constants.HALF_IMAGE_HEIGHT);
+                    turned.Dispose();
                 }
                 turned = new Bitmap(window.Width, window.Height);
                 using (Graphics g = Graphics.FromImage(turned))
@@ -306,12 +305,14 @@ namespace Cipher
                     g.DrawImage(window, 0, 0);
                 }
                 res.DrawImage(turned, Constants.HALF_IMAGE_WIDTH - window.Width / 2, Constants.HALF_IMAGE_HEIGHT - window.Height / 2);
+                turned.Dispose();
             }
             owner.output.MakeTransparent(Color.White);
-            //owner.output.MakeTransparent(Color.Black);
-            ++iterationCount;
-            if (iterationCount % 100 == 0)
-                GC.Collect();
+        }
+
+        public char encrypt(char c)
+        {
+            return c;
         }
     }
 }

@@ -307,11 +307,21 @@ namespace Cipher
                 res.DrawImage(turned, Constants.HALF_IMAGE_WIDTH - window.Width / 2, Constants.HALF_IMAGE_HEIGHT - window.Height / 2);
                 turned.Dispose();
             }
-            owner.output.MakeTransparent(Color.White);
+            //owner.output.MakeTransparent(Color.White);
         }
 
         public char encrypt(char c)
         {
+            int outerLength = setup.alphabets.Last().Length;
+            for (int i = 0; i < outerLength; ++i)
+            {
+                if (setup.alphabets.Last()[i] == c)
+                {
+                    int diskIndex = (setup.ringCount - 2) - ((owner.inputTextBox.Text.Length - 1) % (setup.ringCount - 2));
+                    int position = (i + owner.rotations.Last() + outerLength) % outerLength - owner.rotations[diskIndex];
+                    return setup.alphabets[diskIndex][(position + setup.alphabets[diskIndex].Length) % setup.alphabets[diskIndex].Length];
+                }
+            }
             return c;
         }
     }

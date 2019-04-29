@@ -77,8 +77,11 @@ namespace Cipher
             this.Size = Screen.GetWorkingArea(this).Size;
 
             mainPictureBox.Size = new Size(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
-            mainPictureBox.Location = new Point((this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
-                                                (this.ClientSize.Height - mainPictureBox.Size.Height) / 2);
+            int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
+                y = (this.ClientSize.Height - mainPictureBox.Size.Height) / 2;
+            mainPictureBox.Location = new Point(x, y);
+            inputTextBox.Location = new Point((x - inputTextBox.Width) / 2, y / 2);
+            outputTextBox.Location = new Point((this.ClientSize.Width + x + mainPictureBox.Size.Width - outputTextBox.Width) / 2, y / 2);
 
             center = new Point(Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH);
             output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
@@ -137,14 +140,15 @@ namespace Cipher
             int shift;
             if (selectedRing == 0)
             {
-                shift = (int)Math.Round((windowRotation / 360 * cipher.Setup.alphabets[1].Length));
-                shift %= cipher.Setup.alphabets[1].Length;
-                windowRotation = (float)shift / cipher.Setup.alphabets[1].Length * 360;
+                //shift = (int)Math.Round((windowRotation / 360 * cipher.Setup.alphabets[1].Length));
+                //shift %= cipher.Setup.alphabets[1].Length;
+                //windowRotation = (float)shift / cipher.Setup.alphabets[1].Length * 360;
             }
             else
             {
                 shift = (int)Math.Round((flrot[selectedRing] / 360 * cipher.Setup.alphabets[selectedRing].Length));
-                shift %= cipher.Setup.alphabets[selectedRing].Length;
+                shift = (shift + cipher.Setup.alphabets[selectedRing].Length) % cipher.Setup.alphabets[selectedRing].Length;
+                rotations[selectedRing] = shift;
                 flrot[selectedRing] = (float)shift / cipher.Setup.alphabets[selectedRing].Length * 360;
             }
             cipher.refreshRings();
@@ -154,9 +158,11 @@ namespace Cipher
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            mainPictureBox.Location = new Point((this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
-                                                (this.ClientSize.Height - mainPictureBox.Size.Height) / 2);
-            //inputTextBox.Size
+            int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
+                y = (this.ClientSize.Height - mainPictureBox.Size.Height) / 2;
+            mainPictureBox.Location = new Point(x, y);
+            inputTextBox.Location = new Point((x - inputTextBox.Width) / 2, y / 2);
+            outputTextBox.Location = new Point((this.ClientSize.Width + x + mainPictureBox.Size.Width - outputTextBox.Width) / 2, y / 2);
         }
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)
@@ -178,9 +184,9 @@ namespace Cipher
                 return;
             if (selectedRing == 0)
             {
-                int dx = e.X - center.X, dy = e.Y - center.Y;
-                double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
-                windowRotation = (float)((newAngle - currentAngle) * 180 / Math.PI);
+                //int dx = e.X - center.X, dy = e.Y - center.Y;
+                //double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
+                //windowRotation = (float)((newAngle - currentAngle) * 180 / Math.PI);
             }
             else
             {

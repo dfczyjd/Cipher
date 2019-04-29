@@ -52,19 +52,22 @@
             // 
             // inputTextBox
             // 
-            this.inputTextBox.Location = new System.Drawing.Point(13, 15);
+            this.inputTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.inputTextBox.Location = new System.Drawing.Point(12, 15);
             this.inputTextBox.Multiline = true;
             this.inputTextBox.Name = "inputTextBox";
-            this.inputTextBox.Size = new System.Drawing.Size(263, 492);
+            this.inputTextBox.Size = new System.Drawing.Size(264, 492);
             this.inputTextBox.TabIndex = 5;
             this.inputTextBox.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
             // 
             // outputTextBox
             // 
-            this.outputTextBox.Location = new System.Drawing.Point(842, 15);
+            this.outputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.outputTextBox.Location = new System.Drawing.Point(823, 15);
             this.outputTextBox.Multiline = true;
             this.outputTextBox.Name = "outputTextBox";
-            this.outputTextBox.Size = new System.Drawing.Size(263, 492);
+            this.outputTextBox.ReadOnly = true;
+            this.outputTextBox.Size = new System.Drawing.Size(282, 492);
             this.outputTextBox.TabIndex = 6;
             // 
             // MainForm
@@ -91,8 +94,8 @@
         #endregion
 
         private System.Windows.Forms.PictureBox mainPictureBox;
-        private System.Windows.Forms.TextBox inputTextBox;
         private System.Windows.Forms.TextBox outputTextBox;
+        public System.Windows.Forms.TextBox inputTextBox;
     }
 }
 

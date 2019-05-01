@@ -190,6 +190,9 @@ namespace Cipher
         private Bitmap window;
         private CipherSetup setup;
 
+        public int highlightFromRing = -1, highlightFromCell = -1,
+                   highlightToRing = -1, highlightToCell = -1;
+
         public CipherSetup Setup
         {
             get
@@ -239,6 +242,45 @@ namespace Cipher
                 g.FillEllipse(MainForm.black, new Rectangle(bmp.Width / 2 - r, bmp.Height / 2 - r, 2 * r, 2 * r));
             }
             return result;
+        }
+
+        public void clearHighlight()
+        {
+            highlightFromCell = highlightFromRing = -1;
+            highlightToCell = highlightToRing = -1;
+        }
+
+        private void highligthCell(int ringIndex, int cellIndex, Color color)
+        {
+            float delta = 180f / Setup.alphabets[ringIndex].Length,
+                  angle = cellIndex * (360f / Setup.alphabets[ringIndex].Length);
+            Bitmap result = new Bitmap(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+            using (Graphics g = Graphics.FromImage(result))
+            {
+                MainForm.rotate(g, angle, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
+                MainForm.rotate(g, delta, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
+                int inRadius = Constants.RING_WIDTH * ringIndex,
+                    outRadius = inRadius + Constants.RING_WIDTH;
+                Pen pen = new Pen(color, 2);
+                g.DrawLine(pen, Constants.HALF_IMAGE_WIDTH,
+                                Constants.HALF_IMAGE_WIDTH - inRadius,
+                                Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH - outRadius);
+                MainForm.rotate(g, -2 * delta, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
+                g.DrawLine(pen, Constants.HALF_IMAGE_WIDTH,
+                                Constants.HALF_IMAGE_WIDTH - inRadius,
+                                Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH - outRadius);
+                MainForm.rotate(g, delta, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
+                pen.Width = 5;
+                g.DrawArc(pen, Constants.HALF_IMAGE_WIDTH - inRadius, Constants.HALF_IMAGE_HEIGHT - inRadius,
+                            2 * inRadius, 2 * inRadius, -90 - delta, 2 * delta);
+                g.DrawArc(pen, Constants.HALF_IMAGE_WIDTH - outRadius, Constants.HALF_IMAGE_HEIGHT - outRadius,
+                            2 * outRadius, 2 * outRadius, -90 - delta, 2 * delta);
+                
+            }
+            using (Graphics g = Graphics.FromImage(owner.output))
+            {
+                g.DrawImage(result, 0, 0);
+            }
         }
 
         private void cutWindow()
@@ -295,7 +337,7 @@ namespace Cipher
                         MainForm.rotate(g, owner.flrot[i], Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
                         g.DrawImage(slices[i], 0, 0);
                     }
-                    res.DrawImage(turned, owner.center.X - Constants.HALF_IMAGE_WIDTH, owner.center.Y - Constants.HALF_IMAGE_HEIGHT);
+                    res.DrawImage(turned, 0, 0);
                     turned.Dispose();
                 }
                 turned = new Bitmap(window.Width, window.Height);
@@ -306,6 +348,11 @@ namespace Cipher
                 }
                 res.DrawImage(turned, Constants.HALF_IMAGE_WIDTH - window.Width / 2, Constants.HALF_IMAGE_HEIGHT - window.Height / 2);
                 turned.Dispose();
+            }
+            if (highlightFromRing != -1)
+            {
+                highligthCell(highlightFromRing, highlightFromCell, Color.Green);
+                highligthCell(highlightToRing, highlightToCell, Color.Red);
             }
             //owner.output.MakeTransparent(Color.White);
         }
@@ -319,6 +366,10 @@ namespace Cipher
                 {
                     int diskIndex = (setup.ringCount - 2) - ((owner.inputTextBox.Text.Length - 1) % (setup.ringCount - 2));
                     int position = (i + owner.rotations.Last() + outerLength) % outerLength - owner.rotations[diskIndex];
+                    highlightFromRing = setup.ringCount - 1;
+                    highlightFromCell = (i + owner.rotations.Last()) % outerLength;
+                    highlightToRing = diskIndex;
+                    highlightToCell = (position + owner.rotations[diskIndex]) % setup.alphabets[diskIndex].Length;
                     return setup.alphabets[diskIndex][(position + setup.alphabets[diskIndex].Length) % setup.alphabets[diskIndex].Length];
                 }
             }

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Resources;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Cipher
 {
@@ -34,6 +36,7 @@ namespace Cipher
 
         public void updateRings()
         {
+            cipher.clearHighlight();
             cipher.slice();
             int ringCount = cipher.Setup.ringCount;
             rotations = new int[ringCount];
@@ -65,6 +68,9 @@ namespace Cipher
             dialog.ShowDialog();
         }
 
+        [DllImport("user32.dll")]
+        static extern bool HideCaret(IntPtr hWnd);
+
         private void mainForm_Load(object sender, EventArgs e)
         {
             MenuItem[] info = new MenuItem[2] { new MenuItem("История шифрования", showHistory),
@@ -75,6 +81,7 @@ namespace Cipher
             mainPictureBox.BackColor = Color.Transparent;
             this.Location = new Point(0, 0);
             this.Size = Screen.GetWorkingArea(this).Size;
+            
 
             mainPictureBox.Size = new Size(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
             int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
@@ -108,6 +115,7 @@ namespace Cipher
 
         private void mainPictureBox_MouseDown(object sender, MouseEventArgs e)
         {
+            cipher.clearHighlight();
             int dx = e.X - center.X, dy = e.Y - center.Y;
             float maxDist = Constants.RING_WIDTH * cipher.Setup.ringCount;
             int distSq = dx * dx + dy * dy;
@@ -167,14 +175,35 @@ namespace Cipher
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)
         {
-            int inLength = inputTextBox.Text.Length,
-                outLength = outputTextBox.Text.Length;
-            if (inLength < outLength)
-                outputTextBox.Text = outputTextBox.Text.Remove(inLength);
-            else if (outLength < inLength)
+            HideCaret(inputTextBox.Handle);
+        }
+
+        private void inputTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar))
             {
-                for (int i = outLength; i < inLength; ++i)
-                    outputTextBox.Text += cipher.encrypt(inputTextBox.Text[i]);
+                inputTextBox.Text += e.KeyChar;
+                outputTextBox.Text += cipher.encrypt(e.KeyChar);
+            }
+            else if (e.KeyChar == '\r')
+            {
+                inputTextBox.Text += "\r\n";
+                outputTextBox.Text += "\r\n";
+            }
+            cipher.refreshRings();
+            mainPictureBox.Refresh();
+            //inputTextBox.SelectionStart = inputTextBox.Text.Length;
+        }
+
+        private void inputTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back && inputTextBox.Text.Length != 0)
+            {
+                inputTextBox.Text = inputTextBox.Text.Remove(inputTextBox.Text.Length - 1);
+                outputTextBox.Text = outputTextBox.Text.Remove(inputTextBox.Text.Length);
+                cipher.clearHighlight();
+                cipher.refreshRings();
+                mainPictureBox.Refresh();
             }
         }
 

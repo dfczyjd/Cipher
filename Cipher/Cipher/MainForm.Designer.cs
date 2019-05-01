@@ -53,16 +53,23 @@
             // inputTextBox
             // 
             this.inputTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.inputTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.inputTextBox.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.inputTextBox.Location = new System.Drawing.Point(12, 15);
             this.inputTextBox.Multiline = true;
             this.inputTextBox.Name = "inputTextBox";
+            this.inputTextBox.ReadOnly = true;
             this.inputTextBox.Size = new System.Drawing.Size(264, 492);
             this.inputTextBox.TabIndex = 5;
             this.inputTextBox.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.inputTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextBox_KeyDown);
+            this.inputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.inputTextBox_KeyPress);
             // 
             // outputTextBox
             // 
             this.outputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.outputTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.outputTextBox.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.outputTextBox.Location = new System.Drawing.Point(823, 15);
             this.outputTextBox.Multiline = true;
             this.outputTextBox.Name = "outputTextBox";

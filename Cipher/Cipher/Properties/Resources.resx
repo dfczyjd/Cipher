@@ -124,6 +124,9 @@
   <data name="bronzeTexture" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bronzeTexture.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Code_O_Graph" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History\Code-O-Graph.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="metalTexture" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\metalTexture.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -133,10 +136,22 @@
   <data name="woodTexture" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\woodTexture.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Заголовок_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\History\Заголовок 1.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  <data name="Диск_Альберти" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History\Диск Альберти.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="Заголовок_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\History\Заголовок 2.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  <data name="Диск_Г_Шотта" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History\Диск Г.Шотта.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Устройство_Дж_Фонтана" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History\Устройство Дж.Фонтана.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Шифратор_Ч_Бэббиджа" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History\Шифратор Ч.Бэббиджа.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Диск_Д_Водсворда" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History\Диск Д.Водсворда.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Диски_Ч_Уитстона_и_Плетта" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History\Диски Ч.Уитстона и Плетта.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
 </root>

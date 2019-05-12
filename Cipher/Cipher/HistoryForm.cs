@@ -25,7 +25,7 @@ namespace Cipher
         }
 
         private Help[] helpTexts;
-        private Help defaultText;
+        private Help defaultText = new Help("Ошибка", "Ошибка загрузки");
 
         private Help GetHelpByTitle(string title)
         {
@@ -42,17 +42,14 @@ namespace Cipher
 
         private void HistoryForm_Load(object sender, EventArgs e)
         {
-            /*contentTreeView.Nodes.Add("Заголовок 1");
-            contentTreeView.Nodes.Add("Заголовок 2");
-
-            helpTexts = new Help[2];
-            helpTexts[0] = new Help("Заголовок 1", "Текст 1");
-            helpTexts[1] = new Help("Заголовок 2", "Текст 2");
-
-            defaultText = new Help("", "Текст по умолчанию");*/
-            helpTexts = new Help[2];
-            helpTexts[0] = new Help("Заголовок 1", Resources.Заголовок_1);
-            helpTexts[1] = new Help("Заголовок 2", Resources.Заголовок_2);
+            helpTexts = new Help[7];
+            helpTexts[0] = new Help("Code-O-Graph", Resources.Code_O_Graph);
+            helpTexts[1] = new Help("Диск Альберти", Resources.Диск_Альберти);
+            helpTexts[2] = new Help("Диск Д.Водсворда", Resources.Диск_Д_Водсворда);
+            helpTexts[3] = new Help("Диски Ч.Уитстона и Плетта", Resources.Диски_Ч_Уитстона_и_Плетта);
+            helpTexts[4] = new Help("Диск Г.Шотта", Resources.Диск_Г_Шотта);
+            helpTexts[5] = new Help("Диск Дж.Фонтана", Resources.Устройство_Дж_Фонтана);
+            helpTexts[6] = new Help("Шифратор Ч.Беббиджа", Resources.Шифратор_Ч_Бэббиджа);
 
             foreach (var elem in helpTexts)
                 contentTreeView.Nodes.Add(elem.title);

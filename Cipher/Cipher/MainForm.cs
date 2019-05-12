@@ -36,6 +36,8 @@ namespace Cipher
 
         public void updateRings()
         {
+            inputTextBox.Clear();
+            outputTextBox.Clear();
             cipher.clearHighlight();
             cipher.slice();
             int ringCount = cipher.Setup.ringCount;
@@ -44,8 +46,10 @@ namespace Cipher
             windowRotation = 0;
             for (int i = 1; i < ringCount; ++i)
                 cipher.inscribe(i);
+            inputAllowed = outputAllowed = cipher.Setup.autoEncrypt;
             cipher.refreshRings();
             mainPictureBox.Refresh();
+            moveControls();
         }
 
         private void changeDisks(object sender, EventArgs e)
@@ -71,6 +75,22 @@ namespace Cipher
         [DllImport("user32.dll")]
         static extern bool HideCaret(IntPtr hWnd);
 
+        private void moveControls()
+        {
+            int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
+                y = (this.ClientSize.Height - mainPictureBox.Size.Height) / 2;
+            mainPictureBox.Location = new Point(x, y);
+            if (cipher == null)
+                return;
+            int textBoxX = this.ClientSize.Width / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount,
+                textBoxY = this.ClientSize.Height / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount;
+            inputTextBox.Size = new Size(textBoxX / 2, inputTextBox.Height);
+            outputTextBox.Size = new Size(textBoxX / 2, outputTextBox.Height);
+            inputTextBox.Location = new Point((textBoxX - inputTextBox.Width) / 2, textBoxY / 2);
+            outputTextBox.Location = new Point((this.ClientSize.Width + textBoxX +
+                Constants.RING_WIDTH * cipher.Setup.ringCount * 2 - outputTextBox.Width) / 2, textBoxY / 2);
+        }
+
         private void mainForm_Load(object sender, EventArgs e)
         {
             MenuItem[] info = new MenuItem[2] { new MenuItem("История шифрования", showHistory),
@@ -78,22 +98,18 @@ namespace Cipher
             MenuItem[] main = new MenuItem[2] { new MenuItem("Изменить шифратор", new EventHandler(changeDisks)),
                                                  new MenuItem("Справка", info) };
             this.Menu = new MainMenu(main);
+
             mainPictureBox.BackColor = Color.Transparent;
             this.Location = new Point(0, 0);
             this.Size = Screen.GetWorkingArea(this).Size;
-            
-
             mainPictureBox.Size = new Size(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
-            int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
-                y = (this.ClientSize.Height - mainPictureBox.Size.Height) / 2;
-            mainPictureBox.Location = new Point(x, y);
-            inputTextBox.Location = new Point((x - inputTextBox.Width) / 2, y / 2);
-            outputTextBox.Location = new Point((this.ClientSize.Width + x + mainPictureBox.Size.Width - outputTextBox.Width) / 2, y / 2);
+            
 
             center = new Point(Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH);
             output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
             CipherSetup setup = CipherSetup.builtInSetups[0];
             cipher = new CipherType(this, setup);
+            moveControls();
             updateRings();
         }
 
@@ -124,20 +140,9 @@ namespace Cipher
             if (selectedRing == 0)
                 return;
             float mouseAngle = (float)(Math.Atan2(dy, dx) + Math.PI / 2);
-            if (Math.Abs(mouseAngle / Math.PI * 180 - windowRotation) < cipher.Setup.WindowAngle)
-            {
-                maxDist += Constants.RING_WIDTH * 0.5f;
-                if (distSq >= maxDist * maxDist)
-                    return;
-                selectedRing = 0;
-                currentAngle = -windowRotation / 180 * Math.PI + mouseAngle;
-            }
-            else
-            {
-                if (distSq >= maxDist * maxDist)
-                    return;
-                currentAngle = -flrot[selectedRing] / 180 * Math.PI + mouseAngle;
-            }
+            if (distSq >= maxDist * maxDist)
+                return;
+            currentAngle = -flrot[selectedRing] / 180 * Math.PI + mouseAngle;
             mouseDown = true;
         }
 
@@ -145,20 +150,10 @@ namespace Cipher
         {
             if (!mouseDown)
                 return;
-            int shift;
-            if (selectedRing == 0)
-            {
-                //shift = (int)Math.Round((windowRotation / 360 * cipher.Setup.alphabets[1].Length));
-                //shift %= cipher.Setup.alphabets[1].Length;
-                //windowRotation = (float)shift / cipher.Setup.alphabets[1].Length * 360;
-            }
-            else
-            {
-                shift = (int)Math.Round((flrot[selectedRing] / 360 * cipher.Setup.alphabets[selectedRing].Length));
-                shift = (shift + cipher.Setup.alphabets[selectedRing].Length) % cipher.Setup.alphabets[selectedRing].Length;
-                rotations[selectedRing] = shift;
-                flrot[selectedRing] = (float)shift / cipher.Setup.alphabets[selectedRing].Length * 360;
-            }
+            int shift = (int)Math.Round((flrot[selectedRing] / 360 * cipher.Setup.alphabets[selectedRing].Length));
+            shift = (shift + cipher.Setup.alphabets[selectedRing].Length) % cipher.Setup.alphabets[selectedRing].Length;
+            rotations[selectedRing] = shift;
+            flrot[selectedRing] = (float)shift / cipher.Setup.alphabets[selectedRing].Length * 360;
             cipher.refreshRings();
             mainPictureBox.Refresh();
             mouseDown = false;
@@ -166,11 +161,52 @@ namespace Cipher
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
+            moveControls();
+            /*int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
                 y = (this.ClientSize.Height - mainPictureBox.Size.Height) / 2;
             mainPictureBox.Location = new Point(x, y);
             inputTextBox.Location = new Point((x - inputTextBox.Width) / 2, y / 2);
-            outputTextBox.Location = new Point((this.ClientSize.Width + x + mainPictureBox.Size.Width - outputTextBox.Width) / 2, y / 2);
+            outputTextBox.Location = new Point((this.ClientSize.Width + x + mainPictureBox.Size.Width - outputTextBox.Width) / 2, y / 2);*/
+        }
+
+        private bool inputAllowed = true,
+                    outputAllowed = true;
+
+        private void outputTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!outputAllowed)
+                return;
+            if (!char.IsControl(e.KeyChar))
+            {
+                outputTextBox.Text += e.KeyChar;
+                inputTextBox.Text += cipher.decrypt(e.KeyChar);
+                inputAllowed = false;
+            }
+            else if (e.KeyChar == '\r')
+            {
+                inputTextBox.Text += "\r\n";
+                outputTextBox.Text += "\r\n";
+                inputAllowed = false;
+            }
+            cipher.refreshRings();
+            mainPictureBox.Refresh();
+        }
+
+        private void outputTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!outputAllowed)
+                return;
+            if (e.KeyCode == Keys.Back && outputTextBox.Text.Length != 0)
+            {
+                --cipher.encryptCount;
+                inputTextBox.Text = inputTextBox.Text.Remove(inputTextBox.Text.Length - 1);
+                outputTextBox.Text = outputTextBox.Text.Remove(inputTextBox.Text.Length);
+                if (inputTextBox.Text.Length == 0)
+                    inputAllowed = true;
+                cipher.clearHighlight();
+                cipher.refreshRings();
+                mainPictureBox.Refresh();
+            }
         }
 
         private void inputTextBox_TextChanged(object sender, EventArgs e)
@@ -180,15 +216,19 @@ namespace Cipher
 
         private void inputTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (!inputAllowed)
+                return;
             if (!char.IsControl(e.KeyChar))
             {
                 inputTextBox.Text += e.KeyChar;
                 outputTextBox.Text += cipher.encrypt(e.KeyChar);
+                outputAllowed = false;
             }
             else if (e.KeyChar == '\r')
             {
                 inputTextBox.Text += "\r\n";
                 outputTextBox.Text += "\r\n";
+                outputAllowed = false;
             }
             cipher.refreshRings();
             mainPictureBox.Refresh();
@@ -197,10 +237,14 @@ namespace Cipher
 
         private void inputTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            if (!inputAllowed)
+                return;
             if (e.KeyCode == Keys.Back && inputTextBox.Text.Length != 0)
             {
                 inputTextBox.Text = inputTextBox.Text.Remove(inputTextBox.Text.Length - 1);
                 outputTextBox.Text = outputTextBox.Text.Remove(inputTextBox.Text.Length);
+                if (outputTextBox.Text.Length == 0)
+                    outputAllowed = true;
                 cipher.clearHighlight();
                 cipher.refreshRings();
                 mainPictureBox.Refresh();
@@ -211,18 +255,9 @@ namespace Cipher
         {
             if (!mouseDown)
                 return;
-            if (selectedRing == 0)
-            {
-                //int dx = e.X - center.X, dy = e.Y - center.Y;
-                //double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
-                //windowRotation = (float)((newAngle - currentAngle) * 180 / Math.PI);
-            }
-            else
-            {
-                int dx = e.X - center.X, dy = e.Y - center.Y;
-                double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
-                flrot[selectedRing] = (float)((newAngle - currentAngle) * 180 / Math.PI);
-            }
+            int dx = e.X - center.X, dy = e.Y - center.Y;
+            double newAngle = Math.Atan2(dy, dx) + Math.PI / 2;
+            flrot[selectedRing] = (float)((newAngle - currentAngle) * 180 / Math.PI);
             cipher.refreshRings();
             mainPictureBox.Refresh();
         }

@@ -76,6 +76,8 @@
             this.outputTextBox.ReadOnly = true;
             this.outputTextBox.Size = new System.Drawing.Size(282, 492);
             this.outputTextBox.TabIndex = 6;
+            this.outputTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.outputTextBox_KeyDown);
+            this.outputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.outputTextBox_KeyPress);
             // 
             // MainForm
             // 

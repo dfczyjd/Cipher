@@ -97,6 +97,7 @@ namespace Cipher
         public Material material;
         public int ringCount;
         public string[] alphabets;
+        public bool autoEncrypt;
 
         public float WindowAngle
         {
@@ -142,10 +143,11 @@ namespace Cipher
                             default:
                                 throw new FormatException("Материала под названием {data[1]} (строка {i}) не существует.");
                         }
-                        setup.ringCount = int.Parse(data[2]) + 1;
+                        setup.autoEncrypt = bool.Parse(data[2]);
+                        setup.ringCount = int.Parse(data[3]) + 1;
                         setup.alphabets = new string[setup.ringCount];
                         for (int j = 1; j < setup.ringCount; ++j)
-                            setup.alphabets[j] = data[j + 2];
+                            setup.alphabets[j] = data[j + 3];
                         builtInSetups[i] = setup;
                     }
                 }
@@ -156,10 +158,10 @@ namespace Cipher
                 string[] alphs = new string[Constants.DEFAULT_RING_COUNT];
                 for (int i = 0; i < Constants.DEFAULT_RING_COUNT; ++i)
                     alphs[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                builtInSetups[0] = createSetup(Material.paper, Constants.DEFAULT_RING_COUNT, alphs, "Бумажный тестовый");
-                builtInSetups[1] = createSetup(Material.wood, Constants.DEFAULT_RING_COUNT, alphs, "Деревянный тестовый");
-                builtInSetups[2] = createSetup(Material.metal, Constants.DEFAULT_RING_COUNT, alphs, "Металлический тестовый");
-                builtInSetups[3] = createSetup(Material.bronze, Constants.DEFAULT_RING_COUNT, alphs, "Бронзовый тестовый");
+                builtInSetups[0] = createSetup(Material.paper, Constants.DEFAULT_RING_COUNT, alphs, true, "Бумажный тестовый");
+                builtInSetups[1] = createSetup(Material.wood, Constants.DEFAULT_RING_COUNT, alphs, true, "Деревянный тестовый");
+                builtInSetups[2] = createSetup(Material.metal, Constants.DEFAULT_RING_COUNT, alphs, true, "Металлический тестовый");
+                builtInSetups[3] = createSetup(Material.bronze, Constants.DEFAULT_RING_COUNT, alphs, true, "Бронзовый тестовый");
                 MessageBox.Show("Не удалось загрузить встроенный набор шифраторов из файла. Загружен стандартный набор.");
             }
         }
@@ -172,13 +174,14 @@ namespace Cipher
             throw new ArgumentException(string.Format("Встроенного шифратора с названием \"{0}\" не найдено", name));
         }
 
-        public static CipherSetup createSetup(Material material, int ringCount, string[] alphabets, string name = Constants.CUSTOM_SETUP_NAME)
+        public static CipherSetup createSetup(Material material, int ringCount, string[] alphabets, bool autoEncrypt, string name = Constants.CUSTOM_SETUP_NAME)
         {
             CipherSetup custom = new CipherSetup();
             custom.name = name;
             custom.material = material;
             custom.ringCount = ringCount;
             custom.alphabets = alphabets;
+            custom.autoEncrypt = autoEncrypt;
             return custom;
         }
     }
@@ -189,6 +192,7 @@ namespace Cipher
         private Bitmap[] slices;
         private Bitmap window;
         private CipherSetup setup;
+        public int encryptCount;
 
         public int highlightFromRing = -1, highlightFromCell = -1,
                    highlightToRing = -1, highlightToCell = -1;
@@ -357,22 +361,35 @@ namespace Cipher
             //owner.output.MakeTransparent(Color.White);
         }
 
+        public char toUpper(char c)
+        {
+            if ('a' <= c && c <= 'z')
+                return (char)(c - 'a' + 'A');
+            return c;
+        }
+
         public char encrypt(char c)
         {
             int outerLength = setup.alphabets.Last().Length;
             for (int i = 0; i < outerLength; ++i)
             {
-                if (setup.alphabets.Last()[i] == c)
+                if (toUpper(setup.alphabets.Last()[i]) == toUpper(c))
                 {
-                    int diskIndex = (setup.ringCount - 2) - ((owner.inputTextBox.Text.Length - 1) % (setup.ringCount - 2));
+                    int diskIndex = (setup.ringCount - 2) - (encryptCount % (setup.ringCount - 2));
                     int position = (i + owner.rotations.Last() + outerLength) % outerLength - owner.rotations[diskIndex];
                     highlightFromRing = setup.ringCount - 1;
                     highlightFromCell = (i + owner.rotations.Last()) % outerLength;
                     highlightToRing = diskIndex;
                     highlightToCell = (position + owner.rotations[diskIndex]) % setup.alphabets[diskIndex].Length;
+                    ++encryptCount;
                     return setup.alphabets[diskIndex][(position + setup.alphabets[diskIndex].Length) % setup.alphabets[diskIndex].Length];
                 }
             }
+            return c;
+        }
+
+        public char decrypt(char c)
+        {
             return c;
         }
     }

@@ -92,6 +92,11 @@
     <Compile Include="Paper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Wood.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -107,14 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -127,8 +127,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\History\Code-O-Graph.rtf" />
+    <None Include="Resources\History\Диск Альберти.rtf" />
+    <None Include="Resources\History\Диск Водсворда.rtf" />
+    <None Include="Resources\History\Диск Г.Шотта.rtf" />
+    <None Include="Resources\History\Диск Д.Водсворда.rtf" />
+    <None Include="Resources\History\Диск Уитстона.rtf" />
+    <None Include="Resources\History\Диски Ч.Уитстона и Плетта.rtf" />
     <None Include="Resources\History\Заголовок 1.rtf" />
     <None Include="Resources\History\Заголовок 2.rtf" />
+    <None Include="Resources\History\Устройство Дж.Фонтана.rtf" />
+    <None Include="Resources\History\Шифратор Ч.Бэббиджа.rtf" />
     <None Include="Resources\paperTexture.bmp" />
   </ItemGroup>
   <ItemGroup>

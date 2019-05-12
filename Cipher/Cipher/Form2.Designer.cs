@@ -42,6 +42,8 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
+            this.autoEncryptCheckBox = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.diskCountNumeric)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +87,7 @@
             this.diskCountNumeric.Location = new System.Drawing.Point(161, 98);
             this.diskCountNumeric.Margin = new System.Windows.Forms.Padding(4);
             this.diskCountNumeric.Minimum = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -93,7 +95,7 @@
             this.diskCountNumeric.Size = new System.Drawing.Size(47, 22);
             this.diskCountNumeric.TabIndex = 4;
             this.diskCountNumeric.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -111,7 +113,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(260, 303);
+            this.okButton.Location = new System.Drawing.Point(258, 339);
             this.okButton.Margin = new System.Windows.Forms.Padding(4);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(100, 28);
@@ -123,7 +125,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 36);
+            this.label4.Location = new System.Drawing.Point(13, 35);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 17);
@@ -189,11 +191,32 @@
             this.textBox6.Size = new System.Drawing.Size(350, 25);
             this.textBox6.TabIndex = 15;
             // 
+            // autoEncryptCheckBox
+            // 
+            this.autoEncryptCheckBox.AutoSize = true;
+            this.autoEncryptCheckBox.Location = new System.Drawing.Point(161, 290);
+            this.autoEncryptCheckBox.Name = "autoEncryptCheckBox";
+            this.autoEncryptCheckBox.Size = new System.Drawing.Size(18, 17);
+            this.autoEncryptCheckBox.TabIndex = 16;
+            this.autoEncryptCheckBox.UseVisualStyleBackColor = true;
+            this.autoEncryptCheckBox.CheckedChanged += new System.EventHandler(this.autoEncryptCheckBox_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 289);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(124, 17);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Автошифрование";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(875, 352);
+            this.ClientSize = new System.Drawing.Size(875, 380);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.autoEncryptCheckBox);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
@@ -234,5 +257,7 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.CheckBox autoEncryptCheckBox;
+        private System.Windows.Forms.Label label5;
     }
 }

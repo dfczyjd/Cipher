@@ -35,18 +35,18 @@
             // contentTreeView
             // 
             this.contentTreeView.Location = new System.Drawing.Point(17, 16);
-            this.contentTreeView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.contentTreeView.Margin = new System.Windows.Forms.Padding(4);
             this.contentTreeView.Name = "contentTreeView";
-            this.contentTreeView.Size = new System.Drawing.Size(132, 291);
+            this.contentTreeView.Size = new System.Drawing.Size(159, 521);
             this.contentTreeView.TabIndex = 0;
             this.contentTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.contentTreeView_AfterSelect);
             // 
             // textBox
             // 
-            this.textBox.Location = new System.Drawing.Point(157, 16);
+            this.textBox.Location = new System.Drawing.Point(183, 16);
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
-            this.textBox.Size = new System.Drawing.Size(406, 291);
+            this.textBox.Size = new System.Drawing.Size(865, 521);
             this.textBox.TabIndex = 1;
             this.textBox.Text = "";
             // 
@@ -54,10 +54,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 322);
+            this.ClientSize = new System.Drawing.Size(1060, 549);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.contentTreeView);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "HistoryForm";
             this.Text = "HistoryForm";
             this.Load += new System.EventHandler(this.HistoryForm_Load);

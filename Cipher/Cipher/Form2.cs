@@ -46,7 +46,8 @@ namespace Cipher
                 }
                 cipher.Setup = CipherSetup.createSetup(Material.getMaterialByName(textureComboBox.Text),
                                                                newRingCount + 1,
-                                                               tmp);
+                                                               tmp,
+                                                               autoEncryptCheckBox.Checked);
             }
             else
                 cipher.Setup = CipherSetup.builtInSetups[cipherComboBox.SelectedIndex];
@@ -61,6 +62,7 @@ namespace Cipher
                 alphabets[i - 1].Text = setup.alphabets[i];
             //alphabetsTextBox.Text = string.Join("\n", setup.alphabets, 1, setup.ringCount - 1);
             textureComboBox.SelectedItem = setup.material.getName();
+            autoEncryptCheckBox.Checked = setup.autoEncrypt;
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -81,17 +83,17 @@ namespace Cipher
             {
                 textureComboBox.Enabled = true;
                 diskCountNumeric.Enabled = true;
+                autoEncryptCheckBox.Enabled = true;
                 foreach (var elem in alphabets)
                     elem.Enabled = true;
-                //alphabetsTextBox.Enabled = true;
             }
             else
             {
                 textureComboBox.Enabled = false;
                 diskCountNumeric.Enabled = false;
+                autoEncryptCheckBox.Enabled = false;
                 foreach (var elem in alphabets)
                     elem.Enabled = false;
-                //alphabetsTextBox.Enabled = false;
                 loadParams(CipherSetup.builtInSetups[cipherComboBox.SelectedIndex]);
             }
         }
@@ -100,6 +102,21 @@ namespace Cipher
         {
             for (int i = 0; i < alphabets.Length; ++i)
                 alphabets[i].Visible = (i < diskCountNumeric.Value);
+        }
+
+        private void autoEncryptCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!autoEncryptCheckBox.Checked)
+                return;
+            for (int i = 1; i < diskCountNumeric.Value; ++i)
+            {
+                if (alphabets[i].TextLength != alphabets[0].TextLength)
+                {
+                    MessageBox.Show("Автоматическое шифрование невохможно для алфавитов разной длины.");
+                    autoEncryptCheckBox.Checked = false;
+                    return;
+                }
+            }
         }
     }
 }

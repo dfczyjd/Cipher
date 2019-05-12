@@ -81,6 +81,20 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset0 Times New Roman;}{\f1\fnil\fcharset204 Times New Roman;}{\f2\froman\fcharset0 Times New Roman;}{\f3\fnil\fcharset0 Calibri;}}
+        ///{\colortbl ;\red0\green0\blue255;}
+        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1033 Code-O-Graph\f1\lang1049\par
+        ///
+        ///\pard\b0\f0\fs22\lang1033 Code-O-Graph - \f1\lang1049\&apos;f8\&apos;e8\&apos;f4\&apos;f0\&apos;ee\&apos;e2\&apos;e0\&apos;eb\&apos;fc\&apos;ed\&apos;ee\&apos;e5 \&apos;f3\&apos;f1\&apos;f2\&apos;f0\&apos;ee\&apos;e9\&apos;f1\&apos;f2\&apos;e2\&apos;ee \&apos;e8\&apos; [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string Code_O_Graph {
+            get {
+                return ResourceManager.GetString("Code_O_Graph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap metalTexture {
@@ -111,32 +125,74 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset204 Calibri;}{\f2\fnil\fcharset0 Calibri;}}
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset0 Calibri;}}
         ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
-        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c7\&apos;e0\&apos;e3\&apos;ee\&apos;eb\&apos;ee\&apos;e2\&apos;ee\&apos;ea\par
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c4\&apos;e8\&apos;f1\&apos;ea \&apos;c0\&apos;eb\&apos;fc\&apos;e1\&apos;e5\&apos;f0\&apos;f2\&apos;e8\par
         ///
-        ///\pard\sa200\sl276\slmult1\b0\f1\fs22\&apos;d2\&apos;e5\&apos;ea\&apos;f1\&apos;f2 \&apos;ed\&apos;ee\&apos;ec\&apos;e5\&apos;f0 1\f2\lang9\par
-        ///}
-        ///.
+        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\pict{\*\picprop}\wmetafile8\picw6308\pich6244\picwgoal3576\pichgoal3540 
+        ///0100090000038a04020000006104020000000400000003010800050000000b0200000000050000
+        ///000c0227 [остаток строки не уместился]&quot;;.
         /// </summary>
-        internal static string Заголовок_1 {
+        internal static string Диск_Альберти {
             get {
-                return ResourceManager.GetString("Заголовок_1", resourceCulture);
+                return ResourceManager.GetString("Диск_Альберти", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset204 Calibri;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
-        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c4\&apos;f0\&apos;f3\&apos;e3\&apos;ee\&apos;e9 \&apos;e7\&apos;e0\&apos;e3\&apos;ee\&apos;eb\&apos;ee\&apos;e2\&apos;ee\&apos;ea\par
-        ///
-        ///\pard\sa200\sl276\slmult1\b0\f1\fs22\&apos;d2\&apos;e5\&apos;ea\&apos;f1\&apos;f2 \&apos;ed\&apos;ee\&apos;ec\&apos;e5\&apos;f0 2\f2\lang9\par
-        ///}
-        ///.
+        ///   Ищет локализованную строку, похожую на {\rtf1}.
         /// </summary>
-        internal static string Заголовок_2 {
+        internal static string Диск_Г_Шотта {
             get {
-                return ResourceManager.GetString("Заголовок_2", resourceCulture);
+                return ResourceManager.GetString("Диск_Г_Шотта", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;d8\&apos;e8\&apos;f4\&apos;f0\&apos;e0\&apos;f2\&apos;ee\&apos;f0 \&apos;c2\&apos;ee\&apos;e4\&apos;f1\&apos;e2\&apos;ee\&apos;f0\&apos;e4\&apos;e0\par
+        ///
+        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\pict{\*\picprop}\wmetafile8\picw29189\pich22373\picwgoal8304\pichgoal6360 
+        ///010009000003166321000000f762210000000400000003010800050000000c02dffb6305050000
+        ///000b020000000005000000070104000000f [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string Диск_Д_Водсворда {
+            get {
+                return ResourceManager.GetString("Диск_Д_Водсворда", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c4\&apos;e8\&apos;f1\&apos;ea\&apos;e8 \&apos;d7.\&apos;d3\&apos;e8\&apos;f2\&apos;f1\&apos;f2\&apos;ee\&apos;ed\&apos;e0 \&apos;e8 \&apos;cf\&apos;eb\&apos;e5\&apos;f2\&apos;f2\&apos;e0\par
+        ///
+        ///\pard\sa200\sl240\slmult1\b0\fs24{\pict{\*\picprop}\wmetafile8\picw26797\pich29337\picwgoal4308\pichgoal4752 
+        ///01000900000316ba06000000edb9060000000400000003010800050000000b0200000000050000
+        ///000c026a05f20403000 [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string Диски_Ч_Уитстона_и_Плетта {
+            get {
+                return ResourceManager.GetString("Диски_Ч_Уитстона_и_Плетта", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1}.
+        /// </summary>
+        internal static string Устройство_Дж_Фонтана {
+            get {
+                return ResourceManager.GetString("Устройство_Дж_Фонтана", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1}.
+        /// </summary>
+        internal static string Шифратор_Ч_Бэббиджа {
+            get {
+                return ResourceManager.GetString("Шифратор_Ч_Бэббиджа", resourceCulture);
             }
         }
     }

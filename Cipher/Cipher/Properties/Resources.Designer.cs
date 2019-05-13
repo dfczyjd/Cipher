@@ -81,20 +81,6 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset0 Times New Roman;}{\f1\fnil\fcharset204 Times New Roman;}{\f2\froman\fcharset0 Times New Roman;}{\f3\fnil\fcharset0 Calibri;}}
-        ///{\colortbl ;\red0\green0\blue255;}
-        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
-        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1033 Code-O-Graph\f1\lang1049\par
-        ///
-        ///\pard\b0\f0\fs22\lang1033 Code-O-Graph - \f1\lang1049\&apos;f8\&apos;e8\&apos;f4\&apos;f0\&apos;ee\&apos;e2\&apos;e0\&apos;eb\&apos;fc\&apos;ed\&apos;ee\&apos;e5 \&apos;f3\&apos;f1\&apos;f2\&apos;f0\&apos;ee\&apos;e9\&apos;f1\&apos;f2\&apos;e2\&apos;ee \&apos;e8\&apos; [остаток строки не уместился]&quot;;.
-        /// </summary>
-        internal static string Code_O_Graph {
-            get {
-                return ResourceManager.GetString("Code_O_Graph", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap metalTexture {
@@ -125,6 +111,19 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f1\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1049\b\f0\fs28\&apos;c4\&apos;e8\&apos;f1\&apos;ea \&apos;c0.\&apos;cc\&apos;e0\&apos;e9\&apos;e5\&apos;f0\&apos;e0\par
+        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\pict\wmetafile8\picw23204\pich26326\picwgoal8310\pichgoal9435 
+        ///0100090000032cfb130000000dfb130000000400000003010800050000000c021dfc6d03050000
+        ///000b0200000000050000000701040000000dfb130 [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string Диск_А_Майера {
+            get {
+                return ResourceManager.GetString("Диск_А_Майера", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset0 Calibri;}}
         ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
         ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c4\&apos;e8\&apos;f1\&apos;ea \&apos;c0\&apos;eb\&apos;fc\&apos;e1\&apos;e5\&apos;f0\&apos;f2\&apos;e8\par
@@ -140,11 +139,17 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1}.
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c4\&apos;e8\&apos;f1\&apos;ea \&apos;c1\&apos;ee\&apos;eb\&apos;f2\&apos;ee\&apos;ed\&apos;e0\par
+        ///
+        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\*\shppict{\pict{\*\picprop}\emfblip\picw344\pich194\picwgoal6720\pichgoal6516 
+        ///010000006c00000000000000000000000f030000fa0200000000000000000000cd360000783500
+        ///0020454d4600000100 [остаток строки не уместился]&quot;;.
         /// </summary>
-        internal static string Диск_Г_Шотта {
+        internal static string Диск_Болтона {
             get {
-                return ResourceManager.GetString("Диск_Г_Шотта", resourceCulture);
+                return ResourceManager.GetString("Диск_Болтона", resourceCulture);
             }
         }
         
@@ -179,20 +184,28 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1}.
+        ///   Ищет локализованную строку, похожую на Машина фон Крихи
+        ///  
+        ///Kryha Standart (слева) и Kryha Liliput(справа)
+        ///Машина, созданная Алексадром фон Крихой в 1924 году, была названа Kryha Standart. Она являлась простым шифратором, имеющим два диска с одинаковыми алфавитами, однако она автоматически вращала их и печатала зашифрованные символы. Однако из-за того, что последовательность вращений была неизменна на каждой машине, шифр не был криптостойким, так как таких последовательностей было немного и их можно было быстро перебрать. Это свойство негативн [остаток строки не уместился]&quot;;.
         /// </summary>
-        internal static string Устройство_Дж_Фонтана {
+        internal static string Машина_фон_Крихи {
             get {
-                return ResourceManager.GetString("Устройство_Дж_Фонтана", resourceCulture);
+                return ResourceManager.GetString("Машина_фон_Крихи", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1}.
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;d3\&apos;f1\&apos;f2\&apos;f0\&apos;ee\&apos;e9\&apos;f1\&apos;f2\&apos;e2\&apos;ee \&apos;c4\&apos;e6.\&apos;d4\&apos;ee\&apos;ed\&apos;f2\&apos;e0\&apos;ed\&apos;e0\par
+        ///
+        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\pict{\*\picprop}\wmetafile8\picw22331\pich25294\picwgoal5544\pichgoal6288 
+        ///0100090000035ae21c00000031e21c0000000400000003010800050000000b0200000 [остаток строки не уместился]&quot;;.
         /// </summary>
-        internal static string Шифратор_Ч_Бэббиджа {
+        internal static string Устройство_Дж_Фонтана {
             get {
-                return ResourceManager.GetString("Шифратор_Ч_Бэббиджа", resourceCulture);
+                return ResourceManager.GetString("Устройство_Дж_Фонтана", resourceCulture);
             }
         }
     }

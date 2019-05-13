@@ -128,7 +128,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\History\Code-O-Graph.rtf" />
+    <None Include="Resources\History\Диск А. Майера.rtf" />
+    <None Include="Resources\History\Диск А.Майера.rtf" />
     <None Include="Resources\History\Диск Альберти.rtf" />
+    <None Include="Resources\History\Диск Болтона.rtf" />
     <None Include="Resources\History\Диск Водсворда.rtf" />
     <None Include="Resources\History\Диск Г.Шотта.rtf" />
     <None Include="Resources\History\Диск Д.Водсворда.rtf" />
@@ -136,6 +139,7 @@
     <None Include="Resources\History\Диски Ч.Уитстона и Плетта.rtf" />
     <None Include="Resources\History\Заголовок 1.rtf" />
     <None Include="Resources\History\Заголовок 2.rtf" />
+    <None Include="Resources\History\Машина фон Крихи.rtf" />
     <None Include="Resources\History\Устройство Дж.Фонтана.rtf" />
     <None Include="Resources\History\Шифратор Ч.Бэббиджа.rtf" />
     <None Include="Resources\paperTexture.bmp" />

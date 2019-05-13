@@ -39,10 +39,9 @@
             this.mainPictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.mainPictureBox.BackColor = System.Drawing.Color.White;
             this.mainPictureBox.InitialImage = null;
-            this.mainPictureBox.Location = new System.Drawing.Point(283, 15);
-            this.mainPictureBox.Margin = new System.Windows.Forms.Padding(4);
+            this.mainPictureBox.Location = new System.Drawing.Point(212, 12);
             this.mainPictureBox.Name = "mainPictureBox";
-            this.mainPictureBox.Size = new System.Drawing.Size(533, 492);
+            this.mainPictureBox.Size = new System.Drawing.Size(400, 400);
             this.mainPictureBox.TabIndex = 4;
             this.mainPictureBox.TabStop = false;
             this.mainPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPictureBox_Paint);
@@ -55,13 +54,15 @@
             this.inputTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.inputTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.inputTextBox.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.inputTextBox.Location = new System.Drawing.Point(12, 15);
+            this.inputTextBox.Location = new System.Drawing.Point(9, 12);
+            this.inputTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.inputTextBox.Multiline = true;
             this.inputTextBox.Name = "inputTextBox";
             this.inputTextBox.ReadOnly = true;
-            this.inputTextBox.Size = new System.Drawing.Size(264, 492);
+            this.inputTextBox.Size = new System.Drawing.Size(199, 400);
             this.inputTextBox.TabIndex = 5;
             this.inputTextBox.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
+            this.inputTextBox.Enter += new System.EventHandler(this.inputTextBox_Enter);
             this.inputTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextBox_KeyDown);
             this.inputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.inputTextBox_KeyPress);
             // 
@@ -70,26 +71,28 @@
             this.outputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.outputTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.outputTextBox.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.outputTextBox.Location = new System.Drawing.Point(823, 15);
+            this.outputTextBox.Location = new System.Drawing.Point(617, 12);
+            this.outputTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.outputTextBox.Multiline = true;
             this.outputTextBox.Name = "outputTextBox";
             this.outputTextBox.ReadOnly = true;
-            this.outputTextBox.Size = new System.Drawing.Size(282, 492);
+            this.outputTextBox.Size = new System.Drawing.Size(212, 400);
             this.outputTextBox.TabIndex = 6;
+            this.outputTextBox.TextChanged += new System.EventHandler(this.outputTextBox_TextChanged);
+            this.outputTextBox.Enter += new System.EventHandler(this.outputTextBox_Enter);
             this.outputTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.outputTextBox_KeyDown);
             this.outputTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.outputTextBox_KeyPress);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Cipher.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1117, 634);
+            this.ClientSize = new System.Drawing.Size(838, 515);
             this.Controls.Add(this.outputTextBox);
             this.Controls.Add(this.inputTextBox);
             this.Controls.Add(this.mainPictureBox);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.mainForm_Load);

@@ -36,14 +36,7 @@ namespace Cipher
                 int newRingCount = (int)diskCountNumeric.Value;
                 string[] tmp = new string[newRingCount + 1];
                 for (int i = 1; i < newRingCount + 1; ++i)
-                {
                     tmp[i] = alphabets[i - 1].Text;
-                    if (i > 1 && tmp[i].Length != tmp[1].Length)
-                    {
-                        MessageBox.Show("Алфавиты должны быть одной длины.");
-                        return;
-                    }
-                }
                 cipher.Setup = CipherSetup.createSetup(Material.getMaterialByName(textureComboBox.Text),
                                                                newRingCount + 1,
                                                                tmp,
@@ -60,7 +53,6 @@ namespace Cipher
             diskCountNumeric.Value = setup.ringCount - 1;
             for (int i = 1; i < setup.ringCount; ++i)
                 alphabets[i - 1].Text = setup.alphabets[i];
-            //alphabetsTextBox.Text = string.Join("\n", setup.alphabets, 1, setup.ringCount - 1);
             textureComboBox.SelectedItem = setup.material.getName();
             autoEncryptCheckBox.Checked = setup.autoEncrypt;
         }
@@ -112,7 +104,7 @@ namespace Cipher
             {
                 if (alphabets[i].TextLength != alphabets[0].TextLength)
                 {
-                    MessageBox.Show("Автоматическое шифрование невохможно для алфавитов разной длины.");
+                    MessageBox.Show("Автоматическое шифрование невозможно для алфавитов разной длины.");
                     autoEncryptCheckBox.Checked = false;
                     return;
                 }

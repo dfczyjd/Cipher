@@ -11,7 +11,6 @@ C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debu
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.pdb
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Debug\Cipher.exe
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Debug\Cipher.pdb
-C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.csprojResolveAssemblyReference.cache
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.MainForm.resources
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.Form2.resources
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.Properties.Resources.resources
@@ -31,3 +30,6 @@ C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\ob
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.exe
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.pdb
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Debug\Cipher.exe.config
+C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Debug\Cipher.exe.config
+C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.csprojAssemblyReference.cache
+C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Debug\Cipher.csproj.CoreCompileInputs.cache

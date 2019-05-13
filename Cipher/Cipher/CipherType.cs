@@ -375,13 +375,13 @@ namespace Cipher
             {
                 if (toUpper(setup.alphabets.Last()[i]) == toUpper(c))
                 {
-                    int diskIndex = (setup.ringCount - 2) - (encryptCount % (setup.ringCount - 2));
+                    int diskIndex = (setup.ringCount - 2) - encryptCount;
                     int position = (i + owner.rotations.Last() + outerLength) % outerLength - owner.rotations[diskIndex];
                     highlightFromRing = setup.ringCount - 1;
                     highlightFromCell = (i + owner.rotations.Last()) % outerLength;
                     highlightToRing = diskIndex;
                     highlightToCell = (position + owner.rotations[diskIndex]) % setup.alphabets[diskIndex].Length;
-                    ++encryptCount;
+                    encryptCount = (encryptCount + 1) % (setup.ringCount - 2);
                     return setup.alphabets[diskIndex][(position + setup.alphabets[diskIndex].Length) % setup.alphabets[diskIndex].Length];
                 }
             }
@@ -390,6 +390,21 @@ namespace Cipher
 
         public char decrypt(char c)
         {
+            int outerLength = setup.alphabets.Last().Length;
+            int diskIndex = (setup.ringCount - 2) - encryptCount;
+            for (int i = 0; i < setup.alphabets[diskIndex].Length; ++i)
+            {
+                if (toUpper(setup.alphabets[diskIndex][i]) == toUpper(c))
+                {
+                    int position = (i + owner.rotations[diskIndex] + outerLength) % outerLength - owner.rotations.Last();
+                    highlightFromRing = setup.ringCount - 1;
+                    highlightFromCell = (position + owner.rotations.Last()) % outerLength;
+                    highlightToRing = diskIndex;
+                    highlightToCell = (i + owner.rotations[diskIndex]) % outerLength;
+                    encryptCount = (encryptCount + 1) % (setup.ringCount - 2);
+                    return setup.alphabets.Last()[(position + outerLength) % outerLength];
+                }
+            }
             return c;
         }
     }

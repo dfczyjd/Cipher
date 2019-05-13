@@ -198,7 +198,13 @@ namespace Cipher
                 return;
             if (e.KeyCode == Keys.Back && outputTextBox.Text.Length != 0)
             {
-                --cipher.encryptCount;
+                try
+                {
+                    int diskIndex = (cipher.Setup.ringCount - 2) - cipher.encryptCount;
+                    cipher.Setup.alphabets[diskIndex].First(c => (cipher.toUpper(c) == cipher.toUpper(inputTextBox.Text.Last())));
+                    cipher.encryptCount = (cipher.encryptCount + cipher.Setup.ringCount - 3) % (cipher.Setup.ringCount - 2);
+                }
+                catch { }
                 inputTextBox.Text = inputTextBox.Text.Remove(inputTextBox.Text.Length - 1);
                 outputTextBox.Text = outputTextBox.Text.Remove(inputTextBox.Text.Length);
                 if (inputTextBox.Text.Length == 0)
@@ -235,12 +241,36 @@ namespace Cipher
             //inputTextBox.SelectionStart = inputTextBox.Text.Length;
         }
 
+        private void inputTextBox_Enter(object sender, EventArgs e)
+        {
+            HideCaret(inputTextBox.Handle);
+        }
+
+        private void outputTextBox_TextChanged(object sender, EventArgs e)
+        {
+            HideCaret(outputTextBox.Handle);
+        }
+
+        private void outputTextBox_Enter(object sender, EventArgs e)
+        {
+            HideCaret(outputTextBox.Handle);
+        }
+
         private void inputTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (!inputAllowed)
                 return;
             if (e.KeyCode == Keys.Back && inputTextBox.Text.Length != 0)
             {
+                try
+                {
+                    cipher.Setup.alphabets.Last().First(c => (cipher.toUpper(c) == cipher.toUpper(inputTextBox.Text.Last())));
+                    cipher.encryptCount = (cipher.encryptCount + cipher.Setup.ringCount - 3) % (cipher.Setup.ringCount - 2);
+                }
+                catch (Exception exc)
+                {
+                    int x = 0;
+                }
                 inputTextBox.Text = inputTextBox.Text.Remove(inputTextBox.Text.Length - 1);
                 outputTextBox.Text = outputTextBox.Text.Remove(inputTextBox.Text.Length);
                 if (outputTextBox.Text.Length == 0)

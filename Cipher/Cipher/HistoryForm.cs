@@ -43,13 +43,13 @@ namespace Cipher
         private void HistoryForm_Load(object sender, EventArgs e)
         {
             helpTexts = new Help[7];
-            helpTexts[0] = new Help("Code-O-Graph", Resources.Code_O_Graph);
-            helpTexts[1] = new Help("Диск Альберти", Resources.Диск_Альберти);
-            helpTexts[2] = new Help("Диск Д.Водсворда", Resources.Диск_Д_Водсворда);
-            helpTexts[3] = new Help("Диски Ч.Уитстона и Плетта", Resources.Диски_Ч_Уитстона_и_Плетта);
-            helpTexts[4] = new Help("Диск Г.Шотта", Resources.Диск_Г_Шотта);
-            helpTexts[5] = new Help("Диск Дж.Фонтана", Resources.Устройство_Дж_Фонтана);
-            helpTexts[6] = new Help("Шифратор Ч.Беббиджа", Resources.Шифратор_Ч_Бэббиджа);
+            helpTexts[0] = new Help("Диск Альберти", Resources.Диск_Альберти);
+            helpTexts[1] = new Help("Диск Д.Водсворда", Resources.Диск_Д_Водсворда);
+            helpTexts[2] = new Help("Диски Ч.Уитстона и Плетта", Resources.Диски_Ч_Уитстона_и_Плетта);
+            helpTexts[3] = new Help("Устройство Дж.Фонтана", Resources.Устройство_Дж_Фонтана);
+            helpTexts[4] = new Help("Диск Болтона", Resources.Диск_Болтона);
+            helpTexts[5] = new Help("Машина фон Крихи", Resources.Машина_фон_Крихи);
+            helpTexts[6] = new Help("Диск А.Майера", Resources.Диск_А_Майера);
 
             foreach (var elem in helpTexts)
                 contentTreeView.Nodes.Add(elem.title);

@@ -206,6 +206,13 @@ namespace Cipher
 
             set
             {
+                if (slices != null)
+                {
+                    foreach (var ring in slices)
+                        ring.Dispose();
+                }
+                if (window != null)
+                    window.Dispose();
                 setup = value;
                 window = new Bitmap((int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 3f / 8)),
                                      (int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 3f / 8)));
@@ -309,7 +316,7 @@ namespace Cipher
             cutWindow();
         }
 
-        public void inscribe(int ringIndex)
+        public void printSymbols(int ringIndex)
         {
             using (Graphics g = Graphics.FromImage(slices[ringIndex]))
             {
@@ -358,31 +365,28 @@ namespace Cipher
                 highligthCell(highlightFromRing, highlightFromCell, Color.Green);
                 highligthCell(highlightToRing, highlightToCell, Color.Red);
             }
-            //owner.output.MakeTransparent(Color.White);
         }
 
-        public char toUpper(char c)
+        public static int mod(int left, int right)
         {
-            if ('a' <= c && c <= 'z')
-                return (char)(c - 'a' + 'A');
-            return c;
+            return (left + right) % right;
         }
 
         public char encrypt(char c)
         {
-            int outerLength = setup.alphabets.Last().Length;
-            for (int i = 0; i < outerLength; ++i)
+            int alphabetLength = setup.alphabets[1].Length;
+            for (int i = 0; i < alphabetLength; ++i)
             {
-                if (toUpper(setup.alphabets.Last()[i]) == toUpper(c))
+                if (char.ToUpper(setup.alphabets.Last()[i]) == char.ToUpper(c))
                 {
                     int diskIndex = (setup.ringCount - 2) - encryptCount;
-                    int position = (i + owner.rotations.Last() + outerLength) % outerLength - owner.rotations[diskIndex];
+                    int position = mod(i + owner.rotations.Last(), alphabetLength) - owner.rotations[diskIndex];
                     highlightFromRing = setup.ringCount - 1;
-                    highlightFromCell = (i + owner.rotations.Last()) % outerLength;
+                    highlightFromCell = mod(i + owner.rotations.Last(), alphabetLength);
                     highlightToRing = diskIndex;
-                    highlightToCell = (position + owner.rotations[diskIndex]) % setup.alphabets[diskIndex].Length;
-                    encryptCount = (encryptCount + 1) % (setup.ringCount - 2);
-                    return setup.alphabets[diskIndex][(position + setup.alphabets[diskIndex].Length) % setup.alphabets[diskIndex].Length];
+                    highlightToCell = mod(position + owner.rotations[diskIndex], alphabetLength);
+                    encryptCount = mod(encryptCount + 1, setup.ringCount - 2);
+                    return setup.alphabets[diskIndex][mod(position, alphabetLength)];
                 }
             }
             return c;
@@ -390,19 +394,19 @@ namespace Cipher
 
         public char decrypt(char c)
         {
-            int outerLength = setup.alphabets.Last().Length;
+            int alphabetLength = setup.alphabets[1].Length;
             int diskIndex = (setup.ringCount - 2) - encryptCount;
-            for (int i = 0; i < setup.alphabets[diskIndex].Length; ++i)
+            for (int i = 0; i < alphabetLength; ++i)
             {
-                if (toUpper(setup.alphabets[diskIndex][i]) == toUpper(c))
+                if (char.ToUpper(setup.alphabets[diskIndex][i]) == char.ToUpper(c))
                 {
-                    int position = (i + owner.rotations[diskIndex] + outerLength) % outerLength - owner.rotations.Last();
-                    highlightFromRing = setup.ringCount - 1;
-                    highlightFromCell = (position + owner.rotations.Last()) % outerLength;
-                    highlightToRing = diskIndex;
-                    highlightToCell = (i + owner.rotations[diskIndex]) % outerLength;
-                    encryptCount = (encryptCount + 1) % (setup.ringCount - 2);
-                    return setup.alphabets.Last()[(position + outerLength) % outerLength];
+                    int position = mod(i + owner.rotations[diskIndex], alphabetLength) - owner.rotations.Last();
+                    highlightToRing = setup.ringCount - 1;
+                    highlightToCell = mod(position + owner.rotations.Last(), alphabetLength);
+                    highlightFromRing = diskIndex;
+                    highlightFromCell = mod(i + owner.rotations[diskIndex], alphabetLength);
+                    encryptCount = mod(encryptCount + 1, setup.ringCount - 2);
+                    return setup.alphabets.Last()[mod(position, alphabetLength)];
                 }
             }
             return c;

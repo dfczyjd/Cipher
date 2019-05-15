@@ -84,8 +84,8 @@ namespace Cipher
                 return;
             int textBoxX = this.ClientSize.Width / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount,
                 textBoxY = this.ClientSize.Height / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount;
-            inputTextBox.Size = new Size(textBoxX / 2, inputTextBox.Height);
-            outputTextBox.Size = new Size(textBoxX / 2, outputTextBox.Height);
+            inputTextBox.Size = new Size(textBoxX / 2, Constants.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
+            outputTextBox.Size = new Size(textBoxX / 2, Constants.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
             inputTextBox.Location = new Point((textBoxX - inputTextBox.Width) / 2, textBoxY / 2);
             outputTextBox.Location = new Point((this.ClientSize.Width + textBoxX +
                 Constants.RING_WIDTH * cipher.Setup.ringCount * 2 - outputTextBox.Width) / 2, textBoxY / 2);

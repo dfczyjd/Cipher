@@ -49,12 +49,12 @@ namespace Cipher
             inputAllowed = outputAllowed = cipher.Setup.autoEncrypt;
             cipher.refreshRings();
             mainPictureBox.Refresh();
-            moveControls();
+            MainForm_Resize(null, null);
         }
 
         private void changeDisks(object sender, EventArgs e)
         {
-            Form2 dialog = new Form2();
+            EditForm dialog = new EditForm();
             dialog.owner = this;
             dialog.cipher = cipher;
             dialog.ShowDialog();
@@ -75,22 +75,6 @@ namespace Cipher
         [DllImport("user32.dll")]
         static extern bool HideCaret(IntPtr hWnd);
 
-        private void moveControls()
-        {
-            int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
-                y = (this.ClientSize.Height - mainPictureBox.Size.Height) / 2;
-            mainPictureBox.Location = new Point(x, y);
-            if (cipher == null)
-                return;
-            int textBoxX = this.ClientSize.Width / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount,
-                textBoxY = this.ClientSize.Height / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount;
-            inputTextBox.Size = new Size(textBoxX / 2, Constants.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
-            outputTextBox.Size = new Size(textBoxX / 2, Constants.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
-            inputTextBox.Location = new Point((textBoxX - inputTextBox.Width) / 2, textBoxY / 2);
-            outputTextBox.Location = new Point((this.ClientSize.Width + textBoxX +
-                Constants.RING_WIDTH * cipher.Setup.ringCount * 2 - outputTextBox.Width) / 2, textBoxY / 2);
-        }
-
         private void mainForm_Load(object sender, EventArgs e)
         {
             MenuItem[] info = new MenuItem[2] { new MenuItem("История шифрования", showHistory),
@@ -108,7 +92,7 @@ namespace Cipher
             output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
             CipherSetup setup = CipherSetup.builtInSetups[0];
             cipher = new CipherType(this, setup);
-            moveControls();
+            MainForm_Resize(null, null);
             updateRings();
         }
 
@@ -126,12 +110,18 @@ namespace Cipher
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            moveControls();
-            /*int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
+            int x = (this.ClientSize.Width - mainPictureBox.Size.Width) / 2,
                 y = (this.ClientSize.Height - mainPictureBox.Size.Height) / 2;
             mainPictureBox.Location = new Point(x, y);
-            inputTextBox.Location = new Point((x - inputTextBox.Width) / 2, y / 2);
-            outputTextBox.Location = new Point((this.ClientSize.Width + x + mainPictureBox.Size.Width - outputTextBox.Width) / 2, y / 2);*/
+            if (cipher == null)
+                return;
+            int textBoxX = this.ClientSize.Width / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount,
+                textBoxY = this.ClientSize.Height / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount;
+            inputTextBox.Size = new Size(textBoxX / 2, Constants.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
+            outputTextBox.Size = new Size(textBoxX / 2, Constants.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
+            inputTextBox.Location = new Point((textBoxX - inputTextBox.Width) / 2, textBoxY / 2);
+            outputTextBox.Location = new Point((this.ClientSize.Width + textBoxX +
+                Constants.RING_WIDTH * cipher.Setup.ringCount * 2 - outputTextBox.Width) / 2, textBoxY / 2);
         }
 
         private bool inputAllowed = true,
@@ -161,18 +151,14 @@ namespace Cipher
         {
             if (!outputAllowed)
                 return;
-            if (e.KeyCode == Keys.Back && outputTextBox.Text.Length != 0)
+            if (e.KeyCode == Keys.Back && outputTextBox.TextLength != 0)
             {
-                try
-                {
-                    int diskIndex = (cipher.Setup.ringCount - 2) - cipher.encryptCount;
-                    cipher.Setup.alphabets[diskIndex].First(c => (char.ToUpper(c) == char.ToUpper(inputTextBox.Text.Last())));
-                    cipher.encryptCount = (cipher.encryptCount + cipher.Setup.ringCount - 3) % (cipher.Setup.ringCount - 2);
-                }
-                catch { }
-                inputTextBox.Text = inputTextBox.Text.Remove(inputTextBox.Text.Length - 1);
-                outputTextBox.Text = outputTextBox.Text.Remove(inputTextBox.Text.Length);
-                if (inputTextBox.Text.Length == 0)
+                int diskIndex = (cipher.Setup.ringCount - 2) - cipher.encryptCount;
+                if (cipher.Setup.findSymbol(diskIndex, inputTextBox.Text.Last()) != -1)
+                    cipher.encryptCount = mod(cipher.encryptCount - 1, cipher.Setup.ringCount - 2);
+                inputTextBox.Text = inputTextBox.Text.Remove(inputTextBox.TextLength - 1);
+                outputTextBox.Text = outputTextBox.Text.Remove(inputTextBox.TextLength);
+                if (inputTextBox.TextLength == 0)
                     inputAllowed = true;
                 cipher.clearHighlight();
                 cipher.refreshRings();
@@ -203,7 +189,7 @@ namespace Cipher
             }
             cipher.refreshRings();
             mainPictureBox.Refresh();
-            //inputTextBox.SelectionStart = inputTextBox.Text.Length;
+            //inputTextBox.SelectionStart = inputTextBox.TextLength;
         }
 
         private void inputTextBox_Enter(object sender, EventArgs e)
@@ -225,20 +211,13 @@ namespace Cipher
         {
             if (!inputAllowed)
                 return;
-            if (e.KeyCode == Keys.Back && inputTextBox.Text.Length != 0)
+            if (e.KeyCode == Keys.Back && inputTextBox.TextLength != 0)
             {
-                try
-                {
-                    cipher.Setup.alphabets.Last().First(c => (char.ToUpper(c) == char.ToUpper(inputTextBox.Text.Last())));
-                    cipher.encryptCount = (cipher.encryptCount + cipher.Setup.ringCount - 3) % (cipher.Setup.ringCount - 2);
-                }
-                catch (Exception exc)
-                {
-                    int x = 0;
-                }
-                inputTextBox.Text = inputTextBox.Text.Remove(inputTextBox.Text.Length - 1);
-                outputTextBox.Text = outputTextBox.Text.Remove(inputTextBox.Text.Length);
-                if (outputTextBox.Text.Length == 0)
+                if (cipher.Setup.findSymbol(cipher.Setup.ringCount - 1, inputTextBox.Text.Last()) != -1)
+                    cipher.encryptCount = mod(cipher.encryptCount - 1, cipher.Setup.ringCount - 2);
+                inputTextBox.Text = inputTextBox.Text.Remove(inputTextBox.TextLength - 1);
+                outputTextBox.Text = outputTextBox.Text.Remove(inputTextBox.TextLength);
+                if (outputTextBox.TextLength == 0)
                     outputAllowed = true;
                 cipher.clearHighlight();
                 cipher.refreshRings();

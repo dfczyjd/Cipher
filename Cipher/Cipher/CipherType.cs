@@ -184,6 +184,14 @@ namespace Cipher
             custom.autoEncrypt = autoEncrypt;
             return custom;
         }
+
+        public int findSymbol(int ringIndex, char symbol)
+        {
+            for (int i = 0; i < alphabets[ringIndex].Length; ++i)
+                if (char.ToUpper(alphabets[ringIndex][i]) == char.ToUpper(symbol))
+                    return i;
+            return -1;
+        }
     }
 
     public class CipherType
@@ -375,41 +383,33 @@ namespace Cipher
         public char encrypt(char c)
         {
             int alphabetLength = setup.alphabets[1].Length;
-            for (int i = 0; i < alphabetLength; ++i)
-            {
-                if (char.ToUpper(setup.alphabets.Last()[i]) == char.ToUpper(c))
-                {
-                    int diskIndex = (setup.ringCount - 2) - encryptCount;
-                    int position = mod(i + owner.rotations.Last(), alphabetLength) - owner.rotations[diskIndex];
-                    highlightFromRing = setup.ringCount - 1;
-                    highlightFromCell = mod(i + owner.rotations.Last(), alphabetLength);
-                    highlightToRing = diskIndex;
-                    highlightToCell = mod(position + owner.rotations[diskIndex], alphabetLength);
-                    encryptCount = mod(encryptCount + 1, setup.ringCount - 2);
-                    return setup.alphabets[diskIndex][mod(position, alphabetLength)];
-                }
-            }
-            return c;
+            int foundIndex = Setup.findSymbol(Setup.ringCount - 1, c);
+            if (foundIndex == -1)
+                return c;
+            int diskIndex = (setup.ringCount - 2) - encryptCount;
+            int position = mod(foundIndex + owner.rotations.Last(), alphabetLength) - owner.rotations[diskIndex];
+            highlightFromRing = setup.ringCount - 1;
+            highlightFromCell = mod(foundIndex + owner.rotations.Last(), alphabetLength);
+            highlightToRing = diskIndex;
+            highlightToCell = mod(position + owner.rotations[diskIndex], alphabetLength);
+            encryptCount = mod(encryptCount + 1, setup.ringCount - 2);
+            return setup.alphabets[diskIndex][mod(position, alphabetLength)];
         }
 
         public char decrypt(char c)
         {
             int alphabetLength = setup.alphabets[1].Length;
             int diskIndex = (setup.ringCount - 2) - encryptCount;
-            for (int i = 0; i < alphabetLength; ++i)
-            {
-                if (char.ToUpper(setup.alphabets[diskIndex][i]) == char.ToUpper(c))
-                {
-                    int position = mod(i + owner.rotations[diskIndex], alphabetLength) - owner.rotations.Last();
-                    highlightToRing = setup.ringCount - 1;
-                    highlightToCell = mod(position + owner.rotations.Last(), alphabetLength);
-                    highlightFromRing = diskIndex;
-                    highlightFromCell = mod(i + owner.rotations[diskIndex], alphabetLength);
-                    encryptCount = mod(encryptCount + 1, setup.ringCount - 2);
-                    return setup.alphabets.Last()[mod(position, alphabetLength)];
-                }
-            }
-            return c;
+            int foundIndex = Setup.findSymbol(diskIndex, c);
+            if (foundIndex == -1)
+                return c;
+            int position = mod(foundIndex + owner.rotations[diskIndex], alphabetLength) - owner.rotations.Last();
+            highlightToRing = setup.ringCount - 1;
+            highlightToCell = mod(position + owner.rotations.Last(), alphabetLength);
+            highlightFromRing = diskIndex;
+            highlightFromCell = mod(foundIndex + owner.rotations[diskIndex], alphabetLength);
+            encryptCount = mod(encryptCount + 1, setup.ringCount - 2);
+            return setup.alphabets.Last()[mod(position, alphabetLength)];
         }
     }
 }

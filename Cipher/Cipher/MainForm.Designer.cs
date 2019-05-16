@@ -55,7 +55,7 @@
             this.inputTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.inputTextBox.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.inputTextBox.Location = new System.Drawing.Point(9, 12);
-            this.inputTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.inputTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.inputTextBox.Multiline = true;
             this.inputTextBox.Name = "inputTextBox";
             this.inputTextBox.ReadOnly = true;
@@ -72,7 +72,7 @@
             this.outputTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.outputTextBox.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.outputTextBox.Location = new System.Drawing.Point(617, 12);
-            this.outputTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.outputTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.outputTextBox.Multiline = true;
             this.outputTextBox.Name = "outputTextBox";
             this.outputTextBox.ReadOnly = true;
@@ -94,7 +94,7 @@
             this.Controls.Add(this.inputTextBox);
             this.Controls.Add(this.mainPictureBox);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Аниматор дискового шифратора";
             this.Load += new System.EventHandler(this.mainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();

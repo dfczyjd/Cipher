@@ -34,32 +34,31 @@
             // 
             // contentTreeView
             // 
-            this.contentTreeView.Location = new System.Drawing.Point(17, 16);
-            this.contentTreeView.Margin = new System.Windows.Forms.Padding(4);
+            this.contentTreeView.Location = new System.Drawing.Point(13, 13);
             this.contentTreeView.Name = "contentTreeView";
-            this.contentTreeView.Size = new System.Drawing.Size(159, 521);
+            this.contentTreeView.Size = new System.Drawing.Size(120, 424);
             this.contentTreeView.TabIndex = 0;
             this.contentTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.contentTreeView_AfterSelect);
             // 
             // textBox
             // 
-            this.textBox.Location = new System.Drawing.Point(183, 16);
+            this.textBox.Location = new System.Drawing.Point(137, 13);
+            this.textBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
-            this.textBox.Size = new System.Drawing.Size(865, 521);
+            this.textBox.Size = new System.Drawing.Size(650, 424);
             this.textBox.TabIndex = 1;
             this.textBox.Text = "";
             // 
             // HistoryForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 549);
+            this.ClientSize = new System.Drawing.Size(795, 446);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.contentTreeView);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "HistoryForm";
-            this.Text = "HistoryForm";
+            this.Text = "История шифрования";
             this.Load += new System.EventHandler(this.HistoryForm_Load);
             this.ResumeLayout(false);
 

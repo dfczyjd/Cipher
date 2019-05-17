@@ -11,6 +11,8 @@ namespace Cipher
 {
     public partial class EditForm : Form
     {
+        const int MAX_RING_COUNT = 6;
+
         public MainForm owner;
         public CipherType cipher;
 
@@ -20,7 +22,7 @@ namespace Cipher
         {
             InitializeComponent();
 
-            alphabets = new TextBox[Constants.MAX_RING_COUNT];
+            alphabets = new TextBox[MAX_RING_COUNT];
             alphabets[0] = textBox1;
             alphabets[1] = textBox2;
             alphabets[2] = textBox3;
@@ -59,12 +61,12 @@ namespace Cipher
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            diskCountNumeric.Maximum = Constants.MAX_RING_COUNT;
+            diskCountNumeric.Maximum = MAX_RING_COUNT;
 
             cipherComboBox.Items.Clear();
             foreach (var setup in CipherSetup.builtInSetups)
                 cipherComboBox.Items.Add(setup.name);
-            cipherComboBox.Items.Add(Constants.CUSTOM_SETUP_NAME);
+            cipherComboBox.Items.Add(CipherSetup.CUSTOM_SETUP_NAME);
             loadParams(cipher.Setup);
             cipherComboBox.SelectedItem = cipher.Setup.name;
         }

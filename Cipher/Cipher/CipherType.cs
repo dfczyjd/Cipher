@@ -30,22 +30,22 @@ namespace Cipher
             paper.name = MaterialName.Paper;
             paper.pen = MainForm.paperPen;
             paper.brush = MainForm.paperPen.Brush;
-            paper.texture = new Bitmap(Resources.paperTexture, Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+            paper.texture = new Bitmap(Resources.paperTexture, CipherType.IMAGE_WIDTH, CipherType.IMAGE_HEIGHT);
             wood = new Material();
             wood.name = MaterialName.Wood;
             wood.pen = MainForm.woodPen;
             wood.brush = MainForm.woodPen.Brush;
-            wood.texture = new Bitmap(Resources.woodTexture, Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+            wood.texture = new Bitmap(Resources.woodTexture, CipherType.IMAGE_WIDTH, CipherType.IMAGE_HEIGHT);
             metal = new Material();
             metal.name = MaterialName.Metal;
             metal.pen = MainForm.metalPen;
             metal.brush = MainForm.metalPen.Brush;
-            metal.texture = new Bitmap(Resources.metalTexture, Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+            metal.texture = new Bitmap(Resources.metalTexture, CipherType.IMAGE_WIDTH, CipherType.IMAGE_HEIGHT);
             bronze = new Material();
             bronze.name = MaterialName.Bronze;
             bronze.pen = MainForm.bronzePen;
             bronze.brush = MainForm.bronzePen.Brush;
-            bronze.texture = new Bitmap(Resources.bronzeTexture, Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+            bronze.texture = new Bitmap(Resources.bronzeTexture, CipherType.IMAGE_WIDTH, CipherType.IMAGE_HEIGHT);
         }
 
         public static Material getMaterialByName(string RussianName)
@@ -91,6 +91,9 @@ namespace Cipher
 
     public class CipherSetup
     {
+        public const string CUSTOM_SETUP_NAME = "Пользовательский";
+        const int DEFAULT_RING_COUNT = 6;
+
         public static CipherSetup[] builtInSetups;
 
         public string name;
@@ -155,13 +158,13 @@ namespace Cipher
             catch
             {
                 builtInSetups = new CipherSetup[4];
-                string[] alphs = new string[Constants.DEFAULT_RING_COUNT];
-                for (int i = 0; i < Constants.DEFAULT_RING_COUNT; ++i)
+                string[] alphs = new string[DEFAULT_RING_COUNT];
+                for (int i = 0; i < DEFAULT_RING_COUNT; ++i)
                     alphs[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                builtInSetups[0] = createSetup(Material.paper, Constants.DEFAULT_RING_COUNT, alphs, true, "Бумажный тестовый");
-                builtInSetups[1] = createSetup(Material.wood, Constants.DEFAULT_RING_COUNT, alphs, true, "Деревянный тестовый");
-                builtInSetups[2] = createSetup(Material.metal, Constants.DEFAULT_RING_COUNT, alphs, true, "Металлический тестовый");
-                builtInSetups[3] = createSetup(Material.bronze, Constants.DEFAULT_RING_COUNT, alphs, true, "Бронзовый тестовый");
+                builtInSetups[0] = createSetup(Material.paper, DEFAULT_RING_COUNT, alphs, true, "Бумажный тестовый");
+                builtInSetups[1] = createSetup(Material.wood, DEFAULT_RING_COUNT, alphs, true, "Деревянный тестовый");
+                builtInSetups[2] = createSetup(Material.metal, DEFAULT_RING_COUNT, alphs, true, "Металлический тестовый");
+                builtInSetups[3] = createSetup(Material.bronze, DEFAULT_RING_COUNT, alphs, true, "Бронзовый тестовый");
                 MessageBox.Show("Не удалось загрузить встроенный набор шифраторов из файла. Загружен стандартный набор.");
             }
         }
@@ -174,7 +177,8 @@ namespace Cipher
             throw new ArgumentException(string.Format("Встроенного шифратора с названием \"{0}\" не найдено", name));
         }
 
-        public static CipherSetup createSetup(Material material, int ringCount, string[] alphabets, bool autoEncrypt, string name = Constants.CUSTOM_SETUP_NAME)
+        public static CipherSetup createSetup(Material material, int ringCount, string[] alphabets,
+                                                bool autoEncrypt, string name = CUSTOM_SETUP_NAME)
         {
             CipherSetup custom = new CipherSetup();
             custom.name = name;
@@ -196,6 +200,12 @@ namespace Cipher
 
     public class CipherType
     {
+        public const int RING_WIDTH = 50;
+        public const int IMAGE_WIDTH = 700;
+        public const int IMAGE_HEIGHT = 700;
+        const int HALF_IMAGE_WIDTH = IMAGE_WIDTH / 2;
+        const int HALF_IMAGE_HEIGHT = IMAGE_HEIGHT / 2;
+
         private MainForm owner;
         private Bitmap[] slices;
         private Bitmap window;
@@ -222,8 +232,8 @@ namespace Cipher
                 if (window != null)
                     window.Dispose();
                 setup = value;
-                window = new Bitmap((int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 3f / 8)),
-                                     (int)(Constants.RING_WIDTH * (setup.ringCount * 2 + 3f / 8)));
+                window = new Bitmap((int)(RING_WIDTH * (setup.ringCount * 2 + 3f / 8)),
+                                     (int)(RING_WIDTH * (setup.ringCount * 2 + 3f / 8)));
                 cutWindow();
             }
         }
@@ -273,26 +283,25 @@ namespace Cipher
         {
             float delta = 180f / Setup.alphabets[ringIndex].Length,
                   angle = cellIndex * (360f / Setup.alphabets[ringIndex].Length);
-            Bitmap result = new Bitmap(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+            Bitmap result = new Bitmap(IMAGE_WIDTH, IMAGE_HEIGHT);
             using (Graphics g = Graphics.FromImage(result))
             {
-                MainForm.rotate(g, angle, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
-                MainForm.rotate(g, delta, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
-                int inRadius = Constants.RING_WIDTH * ringIndex,
-                    outRadius = inRadius + Constants.RING_WIDTH;
+                MainForm.rotate(g, angle, HALF_IMAGE_WIDTH, HALF_IMAGE_HEIGHT);
+                MainForm.rotate(g, delta, HALF_IMAGE_WIDTH, HALF_IMAGE_HEIGHT);
+                int inRadius = RING_WIDTH * ringIndex,
+                    outRadius = inRadius + RING_WIDTH;
                 Pen pen = new Pen(color, 2);
-                g.DrawLine(pen, Constants.HALF_IMAGE_WIDTH,
-                                Constants.HALF_IMAGE_WIDTH - inRadius,
-                                Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH - outRadius);
-                MainForm.rotate(g, -2 * delta, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
-                g.DrawLine(pen, Constants.HALF_IMAGE_WIDTH,
-                                Constants.HALF_IMAGE_WIDTH - inRadius,
-                                Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH - outRadius);
-                MainForm.rotate(g, delta, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
+                g.DrawLine(pen, HALF_IMAGE_WIDTH, HALF_IMAGE_WIDTH - inRadius,
+                                HALF_IMAGE_WIDTH, HALF_IMAGE_WIDTH - outRadius);
+                MainForm.rotate(g, -2 * delta, HALF_IMAGE_WIDTH, HALF_IMAGE_HEIGHT);
+                g.DrawLine(pen, HALF_IMAGE_WIDTH,
+                                HALF_IMAGE_WIDTH - inRadius,
+                                HALF_IMAGE_WIDTH, HALF_IMAGE_WIDTH - outRadius);
+                MainForm.rotate(g, delta, HALF_IMAGE_WIDTH, HALF_IMAGE_HEIGHT);
                 pen.Width = 5;
-                g.DrawArc(pen, Constants.HALF_IMAGE_WIDTH - inRadius, Constants.HALF_IMAGE_HEIGHT - inRadius,
+                g.DrawArc(pen, HALF_IMAGE_WIDTH - inRadius, HALF_IMAGE_HEIGHT - inRadius,
                             2 * inRadius, 2 * inRadius, -90 - delta, 2 * delta);
-                g.DrawArc(pen, Constants.HALF_IMAGE_WIDTH - outRadius, Constants.HALF_IMAGE_HEIGHT - outRadius,
+                g.DrawArc(pen, HALF_IMAGE_WIDTH - outRadius, HALF_IMAGE_HEIGHT - outRadius,
                             2 * outRadius, 2 * outRadius, -90 - delta, 2 * delta);
                 
             }
@@ -318,8 +327,8 @@ namespace Cipher
             slices = new Bitmap[Setup.ringCount];
             for (int i = 0; i < Setup.ringCount; ++i)
             {
-                slices[i] = removeCircle(Setup.material.texture, Constants.RING_WIDTH * i);
-                slices[i] = cutCircle(slices[i], Constants.RING_WIDTH * (i + 1));
+                slices[i] = removeCircle(Setup.material.texture, RING_WIDTH * i);
+                slices[i] = cutCircle(slices[i], RING_WIDTH * (i + 1));
             }
             cutWindow();
         }
@@ -332,12 +341,12 @@ namespace Cipher
                 {
                     float angle = 180.0F / Setup.alphabets[ringIndex].Length;
                     Font f = new Font("Consolas", ringIndex * 2 + 10, FontStyle.Bold);
-                    float y = Constants.HALF_IMAGE_WIDTH - Constants.RING_WIDTH * (ringIndex + 0.5F), x = Constants.HALF_IMAGE_WIDTH;
+                    float y = HALF_IMAGE_WIDTH - RING_WIDTH * (ringIndex + 0.5F), x = HALF_IMAGE_WIDTH;
                     g.DrawString(Setup.alphabets[ringIndex].Substring(j, 1), f, Setup.material.brush, x - f.SizeInPoints / 2, y - f.Height / 2);
-                    MainForm.rotate(g, angle, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
-                    g.DrawLine(new Pen(Setup.material.brush, 1), Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT,
-                        Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH - Constants.RING_WIDTH * (ringIndex + 1));
-                    MainForm.rotate(g, angle, Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
+                    MainForm.rotate(g, angle, HALF_IMAGE_WIDTH, HALF_IMAGE_HEIGHT);
+                    g.DrawLine(new Pen(Setup.material.brush, 1), HALF_IMAGE_WIDTH, HALF_IMAGE_HEIGHT,
+                        HALF_IMAGE_WIDTH, HALF_IMAGE_WIDTH - RING_WIDTH * (ringIndex + 1));
+                    MainForm.rotate(g, angle, HALF_IMAGE_WIDTH, HALF_IMAGE_HEIGHT);
                 }
             }
         }
@@ -350,10 +359,10 @@ namespace Cipher
                 res.Clear(Color.Transparent);
                 for (int i = Setup.ringCount - 1; i >= 0; --i)
                 {
-                    turned = new Bitmap(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+                    turned = new Bitmap(IMAGE_WIDTH, IMAGE_HEIGHT);
                     using (Graphics g = Graphics.FromImage(turned))
                     {
-                        MainForm.rotate(g, owner.flrot[i], Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_HEIGHT);
+                        MainForm.rotate(g, owner.flrot[i], HALF_IMAGE_WIDTH, HALF_IMAGE_HEIGHT);
                         g.DrawImage(slices[i], 0, 0);
                     }
                     res.DrawImage(turned, 0, 0);
@@ -365,7 +374,7 @@ namespace Cipher
                     MainForm.rotate(g, owner.windowRotation, window.Width / 2, window.Height / 2);
                     g.DrawImage(window, 0, 0);
                 }
-                res.DrawImage(turned, Constants.HALF_IMAGE_WIDTH - window.Width / 2, Constants.HALF_IMAGE_HEIGHT - window.Height / 2);
+                res.DrawImage(turned, HALF_IMAGE_WIDTH - window.Width / 2, HALF_IMAGE_HEIGHT - window.Height / 2);
                 turned.Dispose();
             }
             if (highlightFromRing != -1)

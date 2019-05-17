@@ -86,9 +86,8 @@ namespace Cipher
             mainPictureBox.BackColor = Color.Transparent;
             this.Location = new Point(0, 0);
             this.Size = Screen.GetWorkingArea(this).Size;
-            mainPictureBox.Size = new Size(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+            mainPictureBox.Size = new Size(CipherType.IMAGE_WIDTH, CipherType.IMAGE_HEIGHT);
             
-            center = new Point(Constants.HALF_IMAGE_WIDTH, Constants.HALF_IMAGE_WIDTH);
             output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
             CipherSetup setup = CipherSetup.builtInSetups[0];
             cipher = new CipherType(this, setup);
@@ -115,13 +114,13 @@ namespace Cipher
             mainPictureBox.Location = new Point(x, y);
             if (cipher == null)
                 return;
-            int textBoxX = this.ClientSize.Width / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount,
-                textBoxY = this.ClientSize.Height / 2 - Constants.RING_WIDTH * cipher.Setup.ringCount;
-            inputTextBox.Size = new Size(textBoxX / 2, Constants.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
-            outputTextBox.Size = new Size(textBoxX / 2, Constants.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
+            int textBoxX = this.ClientSize.Width / 2 - CipherType.RING_WIDTH * cipher.Setup.ringCount,
+                textBoxY = this.ClientSize.Height / 2 - CipherType.RING_WIDTH * cipher.Setup.ringCount;
+            inputTextBox.Size = new Size(textBoxX / 2, CipherType.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
+            outputTextBox.Size = new Size(textBoxX / 2, CipherType.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
             inputTextBox.Location = new Point((textBoxX - inputTextBox.Width) / 2, textBoxY / 2);
             outputTextBox.Location = new Point((this.ClientSize.Width + textBoxX +
-                Constants.RING_WIDTH * cipher.Setup.ringCount * 2 - outputTextBox.Width) / 2, textBoxY / 2);
+                CipherType.RING_WIDTH * cipher.Setup.ringCount * 2 - outputTextBox.Width) / 2, textBoxY / 2);
         }
 
         private bool inputAllowed = true,
@@ -243,10 +242,10 @@ namespace Cipher
         {
             cipher.clearHighlight();
             int dx = e.X - center.X, dy = e.Y - center.Y;
-            float maxDist = Constants.RING_WIDTH * cipher.Setup.ringCount;
+            float maxDist = CipherType.RING_WIDTH * cipher.Setup.ringCount;
             int distSq = dx * dx + dy * dy;
             double dist = Math.Sqrt(distSq);
-            selectedRing = (int)Math.Floor(dist / Constants.RING_WIDTH);
+            selectedRing = (int)Math.Floor(dist / CipherType.RING_WIDTH);
             if (selectedRing == 0)
                 return;
             float mouseAngle = toDegrees((float)Math.Atan2(dy, dx)) + 180;

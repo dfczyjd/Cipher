@@ -12,38 +12,31 @@ using System.Threading.Tasks;
 
 namespace Cipher
 {
+    //Класс формы основного окна
     public partial class MainForm : Form
     {
-        public Bitmap output;
-        public Point center;
-        public int[] rotations;
-        public float[] flrot;
-        public float windowRotation;
-        public CipherType cipher;
-
-        public static Brush black = new Pen(Color.Black).Brush,
-                    white = new Pen(Color.White).Brush;
-
-        public static Pen paperPen = new Pen(Color.Black);
-        public static Pen metalPen = new Pen(Color.FromArgb(192, Color.Black), 3);
-        public static Pen woodPen = new Pen(Color.FromArgb(0x80, 0x40, 0x20), 3);
-        public static Pen bronzePen = new Pen(Color.FromArgb(0x80, 0x40, 0x20), 3);//new Pen(Color.FromArgb(0xE2, 0xA5, 0x6F), 3);
+        public Bitmap output;                   // Поле для вывода модели классом шифратора
+        public int[] cellRotations;             // Повороты дисков в ячейках
+        public float[] degreeRotations;         // Повороты дисков в градусах
+        public CipherType cipher;               // Отображаемая модель шифратора
 
         public MainForm()
         {
             InitializeComponent();
         }
 
-        public void updateRings()
+        /// <summary>
+        /// Обновить модель
+        /// </summary>
+        public void updateCipher()
         {
             inputTextBox.Clear();
             outputTextBox.Clear();
             cipher.clearHighlight();
-            cipher.slice();
+            cipher.createRings();
             int ringCount = cipher.Setup.ringCount;
-            rotations = new int[ringCount];
-            flrot = new float[ringCount];
-            windowRotation = 0;
+            cellRotations = new int[ringCount];
+            degreeRotations = new float[ringCount];
             for (int i = 1; i < ringCount; ++i)
                 cipher.printSymbols(i);
             inputAllowed = outputAllowed = cipher.Setup.autoEncrypt;
@@ -52,26 +45,48 @@ namespace Cipher
             MainForm_Resize(null, null);
         }
 
+        /// <summary>
+        /// Открыть окно настроек
+        /// </summary>
+        /// <param name="sender">Не используется</param>
+        /// <param name="e">Не используется</param>
         private void changeDisks(object sender, EventArgs e)
         {
-            EditForm dialog = new EditForm();
-            dialog.owner = this;
-            dialog.cipher = cipher;
+            EditForm dialog = new EditForm
+            {
+                owner = this,
+                cipher = cipher
+            };
             dialog.ShowDialog();
         }
 
+        /// <summary>
+        /// Открыть окно "О программе"
+        /// </summary>
+        /// <param name="sender">Не используется</param>
+        /// <param name="e">Не используется</param>
         private void showAbout(object sender, EventArgs e)
         {
             AboutForm dialog = new AboutForm();
             dialog.ShowDialog();
         }
 
+        /// <summary>
+        /// Открыть окно исторической справки
+        /// </summary>
+        /// <param name="sender">Не используется</param>
+        /// <param name="e">Не используется</param>
         private void showHistory(object sender, EventArgs e)
         {
             HistoryForm dialog = new HistoryForm();
             dialog.ShowDialog();
         }
 
+        /// <summary>
+        /// Скрыть курсор в окне
+        /// </summary>
+        /// <param name="hWnd">Дескриптор окна</param>
+        /// <returns></returns>
         [DllImport("user32.dll")]
         static extern bool HideCaret(IntPtr hWnd);
 
@@ -89,17 +104,10 @@ namespace Cipher
             mainPictureBox.Size = new Size(CipherType.IMAGE_WIDTH, CipherType.IMAGE_HEIGHT);
             
             output = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
-            CipherSetup setup = CipherSetup.builtInSetups[0];
+            CipherSetup setup = CipherSetup.loadedSetups[0];
             cipher = new CipherType(this, setup);
             MainForm_Resize(null, null);
-            updateRings();
-        }
-
-        public static void rotate(Graphics g, float angle, int x, int y)
-        {
-            g.TranslateTransform(x, y);
-            g.RotateTransform(angle);
-            g.TranslateTransform(-x, -y);
+            updateCipher();
         }
 
         private void mainPictureBox_Paint(object sender, PaintEventArgs e)
@@ -116,13 +124,18 @@ namespace Cipher
                 return;
             int textBoxX = this.ClientSize.Width / 2 - CipherType.RING_WIDTH * cipher.Setup.ringCount,
                 textBoxY = this.ClientSize.Height / 2 - CipherType.RING_WIDTH * cipher.Setup.ringCount;
-            inputTextBox.Size = new Size(textBoxX / 2, CipherType.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
-            outputTextBox.Size = new Size(textBoxX / 2, CipherType.RING_WIDTH * cipher.Setup.ringCount + this.ClientSize.Height / 2);
+            // Установить поля ввода открытого и зашифрованного текстов
+            // посередине областей справа и слева от изображения модели
+            inputTextBox.Size = new Size(textBoxX / 2, CipherType.RING_WIDTH * cipher.Setup.ringCount +
+                                                        this.ClientSize.Height / 2);
+            outputTextBox.Size = new Size(textBoxX / 2, CipherType.RING_WIDTH * cipher.Setup.ringCount +
+                                                        this.ClientSize.Height / 2);
             inputTextBox.Location = new Point((textBoxX - inputTextBox.Width) / 2, textBoxY / 2);
             outputTextBox.Location = new Point((this.ClientSize.Width + textBoxX +
                 CipherType.RING_WIDTH * cipher.Setup.ringCount * 2 - outputTextBox.Width) / 2, textBoxY / 2);
         }
 
+        // Поля, хранящие, возможен ли ввод в поля открытого и зашифрованного текстов
         private bool inputAllowed = true,
                     outputAllowed = true;
 
@@ -165,11 +178,6 @@ namespace Cipher
             }
         }
 
-        private void inputTextBox_TextChanged(object sender, EventArgs e)
-        {
-            HideCaret(inputTextBox.Handle);
-        }
-
         private void inputTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!inputAllowed)
@@ -188,22 +196,12 @@ namespace Cipher
             }
             cipher.refreshRings();
             mainPictureBox.Refresh();
-            //inputTextBox.SelectionStart = inputTextBox.TextLength;
         }
 
-        private void inputTextBox_Enter(object sender, EventArgs e)
+        private void textBox_TextChanged(object sender, EventArgs e)
         {
-            HideCaret(inputTextBox.Handle);
-        }
-
-        private void outputTextBox_TextChanged(object sender, EventArgs e)
-        {
-            HideCaret(outputTextBox.Handle);
-        }
-
-        private void outputTextBox_Enter(object sender, EventArgs e)
-        {
-            HideCaret(outputTextBox.Handle);
+            var textBox = (TextBox)sender;
+            textBox.SelectionStart = textBox.TextLength;
         }
 
         private void inputTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -224,15 +222,26 @@ namespace Cipher
             }
         }
 
-        int selectedRing = -1;
-        bool mouseDown = false;
-        float currentAngle = 0;
+        int selectedRing = -1;      // Вращаемый диск, -1, если такового нет
+        bool mouseDown = false;     // Зажата ли кнопка мыши для вращения диска
+        float currentAngle = 0;     // Текущий угол поворота диска
 
+        /// <summary>
+        /// Операция % для отрицательных чисел
+        /// </summary>
+        /// <param name="left">Левый операнд</param>
+        /// <param name="right">Правый операнд</param>
+        /// <returns>Результат операции</returns>
         public static int mod(int left, int right)
         {
             return (left + right) % right;
         }
 
+        /// <summary>
+        /// Перевод угла из радиан в градусы
+        /// </summary>
+        /// <param name="radians">Величина угла в радианах</param>
+        /// <returns>Величина угла в градусах</returns>
         public static float toDegrees(float radians)
         {
             return radians / (float)Math.PI * 180f;
@@ -241,7 +250,7 @@ namespace Cipher
         private void mainPictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             cipher.clearHighlight();
-            int dx = e.X - center.X, dy = e.Y - center.Y;
+            int dx = e.X - CipherType.HALF_IMAGE_WIDTH, dy = e.Y - CipherType.HALF_IMAGE_HEIGHT;
             float maxDist = CipherType.RING_WIDTH * cipher.Setup.ringCount;
             int distSq = dx * dx + dy * dy;
             double dist = Math.Sqrt(distSq);
@@ -251,7 +260,7 @@ namespace Cipher
             float mouseAngle = toDegrees((float)Math.Atan2(dy, dx)) + 180;
             if (distSq >= maxDist * maxDist)
                 return;
-            currentAngle = mouseAngle - flrot[selectedRing];
+            currentAngle = mouseAngle - degreeRotations[selectedRing];
             mouseDown = true;
         }
 
@@ -259,10 +268,11 @@ namespace Cipher
         {
             if (!mouseDown)
                 return;
-            int shift = (int)Math.Round((flrot[selectedRing] / 360 * cipher.Setup.alphabets[selectedRing].Length));
+            int shift = (int)Math.Round((degreeRotations[selectedRing] / 360 *
+                                cipher.Setup.alphabets[selectedRing].Length));
             shift = mod(shift, cipher.Setup.alphabets[selectedRing].Length);
-            rotations[selectedRing] = shift;
-            flrot[selectedRing] = (float)shift / cipher.Setup.alphabets[selectedRing].Length * 360;
+            cellRotations[selectedRing] = shift;
+            degreeRotations[selectedRing] = (float)shift / cipher.Setup.alphabets[selectedRing].Length * 360;
             cipher.refreshRings();
             mainPictureBox.Refresh();
             mouseDown = false;
@@ -272,9 +282,9 @@ namespace Cipher
         {
             if (!mouseDown)
                 return;
-            int dx = e.X - center.X, dy = e.Y - center.Y;
+            int dx = e.X - CipherType.HALF_IMAGE_WIDTH, dy = e.Y - CipherType.HALF_IMAGE_HEIGHT;
             float newAngle = toDegrees((float)Math.Atan2(dy, dx)) + 180;
-            flrot[selectedRing] = newAngle - currentAngle;
+            degreeRotations[selectedRing] = newAngle - currentAngle;
             cipher.refreshRings();
             mainPictureBox.Refresh();
         }

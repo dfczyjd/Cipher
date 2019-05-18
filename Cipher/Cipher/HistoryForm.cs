@@ -11,12 +11,24 @@ using System.IO;
 
 namespace Cipher
 {
+    /// <summary>
+    /// Класс формы окна исторической справки
+    /// </summary>
     public partial class HistoryForm : Form
     {
+        /// <summary>
+        /// Класс статьи справки
+        /// </summary>
         class Help
         {
-            public string title, content;
+            public string title,    // Заголовок
+                        content;    // Содержание статьи
 
+            /// <summary>
+            /// Конструктор
+            /// </summary>
+            /// <param name="title">Заголовок</param>
+            /// <param name="content">Содержание статьи</param>
             public Help(string title, string content)
             {
                 this.title = title;
@@ -24,9 +36,14 @@ namespace Cipher
             }
         }
 
-        private Help[] helpTexts;
-        private Help defaultText = new Help("Ошибка", "Ошибка загрузки");
+        private Help[] helpTexts;                                           // Статьи справки
+        private Help defaultText = new Help("Ошибка", "Ошибка загрузки");   // Статья по умолчанию
 
+        /// <summary>
+        /// Получить статью по заголовку
+        /// </summary>
+        /// <param name="title">Заголовок</param>
+        /// <returns>Статья с указанным заголовком</returns>
         private Help GetHelpByTitle(string title)
         {
             foreach (var text in helpTexts)

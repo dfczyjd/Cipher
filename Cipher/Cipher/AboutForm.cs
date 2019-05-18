@@ -9,11 +9,19 @@ using System.Windows.Forms;
 
 namespace Cipher
 {
+    /// <summary>
+    /// Класс формы окна "О программе"
+    /// </summary>
     public partial class AboutForm : Form
     {
         public AboutForm()
         {
             InitializeComponent();
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

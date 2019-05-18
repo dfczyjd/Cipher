@@ -23,10 +23,11 @@ C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bi
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.csprojAssemblyReference.cache
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.AboutForm.resources
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.MainForm.resources
-C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.Form2.resources
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.HistoryForm.resources
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.Properties.Resources.resources
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.csproj.GenerateResource.cache
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.csproj.CoreCompileInputs.cache
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.exe
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.pdb
+C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Release\Cipher.exe.config
+C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.EditForm.resources

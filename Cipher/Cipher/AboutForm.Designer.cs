@@ -33,65 +33,80 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.okButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 44);
+            this.label1.Location = new System.Drawing.Point(22, 36);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 17);
+            this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Разработчик:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(146, 44);
+            this.label2.Location = new System.Drawing.Point(110, 36);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(184, 51);
+            this.label2.Size = new System.Drawing.Size(147, 39);
             this.label2.TabIndex = 1;
             this.label2.Text = "Новак Василий,\nстудент 1 курса ОП\n\"Программная инженерия\"";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 105);
+            this.label3.Location = new System.Drawing.Point(25, 85);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 34);
+            this.label3.Size = new System.Drawing.Size(80, 26);
             this.label3.TabIndex = 2;
             this.label3.Text = "Научный\nруководитель:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(146, 122);
+            this.label4.Location = new System.Drawing.Point(110, 99);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 17);
+            this.label4.Size = new System.Drawing.Size(63, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Шилов В.В.";
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(126, 172);
+            this.okButton.Location = new System.Drawing.Point(94, 150);
+            this.okButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.Size = new System.Drawing.Size(56, 19);
             this.okButton.TabIndex = 4;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(28, 125);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(90, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Copyright © 2019";
+            // 
             // AboutForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 222);
+            this.ClientSize = new System.Drawing.Size(284, 180);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "AboutForm";
             this.Text = "О программе";
@@ -107,5 +122,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Label label5;
     }
 }

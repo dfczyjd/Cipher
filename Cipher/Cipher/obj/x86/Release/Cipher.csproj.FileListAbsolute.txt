@@ -9,9 +9,7 @@ C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\obj\x86\Release\Cip
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\obj\x86\Release\Cipher.mainForm.resources
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Release\Cipher.exe
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Release\Cipher.pdb
-C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.csprojResolveAssemblyReference.cache
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.MainForm.resources
-C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.Form2.resources
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.Properties.Resources.resources
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.csproj.GenerateResource.Cache
 C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.exe
@@ -31,3 +29,7 @@ C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\ob
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.pdb
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Release\Cipher.exe.config
 C:\Users\Василий\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.EditForm.resources
+C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\bin\Release\Cipher.exe.config
+C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.csprojAssemblyReference.cache
+C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.EditForm.resources
+C:\Users\Home\Documents\ДЗ Вышка\1 КР\Cipher\Cipher\Cipher\obj\x86\Release\Cipher.csproj.CoreCompileInputs.cache

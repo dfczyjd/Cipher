@@ -196,7 +196,7 @@ namespace Cipher
                     }
                 }
             }
-            catch   // Если произошла ошибка, установиьт тестовый набор
+            catch   // Если произошла ошибка, установить тестовый набор
             {
                 loadedSetups = new CipherSetup[4];
                 int ringCount = 6;
@@ -207,7 +207,7 @@ namespace Cipher
                 loadedSetups[1] = createSetup(Material.wood, ringCount, alphs, true, "Деревянный тестовый");
                 loadedSetups[2] = createSetup(Material.metal, ringCount, alphs, true, "Металлический тестовый");
                 loadedSetups[3] = createSetup(Material.bronze, ringCount, alphs, true, "Бронзовый тестовый");
-                MessageBox.Show("Не удалось загрузить встроенный набор шифраторов из файла. Загружен стандартный набор.");
+                MessageBox.Show("Не удалось загрузить набор шифраторов из файла. Загружен встроенный набор.");
             }
         }
 

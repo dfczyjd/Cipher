@@ -111,11 +111,22 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f1\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1049\b\f0\fs28\&apos;c4\&apos;e8\&apos;f1\&apos;ea \&apos;c0.\&apos;cc\&apos;e0\&apos;e9\&apos;e5\&apos;f0\&apos;e0\par
-        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\pict\wmetafile8\picw23204\pich26326\picwgoal8310\pichgoal9435 
-        ///0100090000032cfb130000000dfb130000000400000003010800050000000c021dfc6d03050000
-        ///000b0200000000050000000701040000000dfb130 [остаток строки не уместился]&quot;;.
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0{\fonttbl{\f0\fnil\fcharset204{\*\fname Arial;}Arial CYR;}{\f1\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f2\fnil\fcharset0 Arial;}{\f3\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1049\b\f0\fs28\&apos;c4\&apos;e0\&apos;f2\&apos;f1\&apos;ea\&apos;e8\&apos;e5 \&apos;f7\&apos;e0\&apos;f1\&apos;fb-\&apos;f8\&apos;e8\&apos;f4\&apos;f0\&apos;e0\&apos;f2\&apos;ee\&apos;f0\f1\par
+        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\pict\wmetafile8\picw10583\pich11430\picwgoal6000\pichgoal6480 
+        ///0100090000 [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string Датские_часы_шифратор {
+            get {
+                return ResourceManager.GetString("Датские_часы_шифратор", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0{\fonttbl{\f0\fnil\fcharset204{\*\fname Arial;}Arial CYR;}{\f1\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f2\fnil\fcharset0 Calibri;}{\f3\fnil\fcharset0 Arial;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1049\b\f0\fs28\&apos;c4\&apos;e8\&apos;f1\&apos;ea \&apos;c0.\&apos;cc\&apos;e0\&apos;e9\&apos;e5\&apos;f0\&apos;e0\f1\par
+        ///\pard\sa200\sl240\slmult1\qc\lang9\b0\f2\fs22{\pict\wmetafile8\picw23204\pich26326\picwgoal8310\pichgoal9435 
+        ///0100090000032cfb130000000dfb13000 [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string Диск_А_Майера {
             get {
@@ -124,13 +135,10 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
-        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c4\&apos;e8\&apos;f1\&apos;ea \&apos;c0\&apos;eb\&apos;fc\&apos;e1\&apos;e5\&apos;f0\&apos;f2\&apos;e8\par
-        ///
-        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\pict{\*\picprop}\wmetafile8\picw6308\pich6244\picwgoal3576\pichgoal3540 
-        ///0100090000038a04020000006104020000000400000003010800050000000b0200000000050000
-        ///000c0227 [остаток строки не уместился]&quot;;.
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1033\b\fs28\u1044?\u1080?\u1089?\u1082? \u1040?\u1083?\u1100?\u1073?\u1077?\u1088?\u1090?\u1080?\lang1049\f1\par
+        ///\pard\sa200\sl240\slmult1\qc\lang9\b0\f2\fs22{\pict\wmetafile8\picw6308\pich6244\picwgoal3576\pichgoal3540 
+        ///0100090000038a0402000000610402000000040 [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string Диск_Альберти {
             get {
@@ -139,13 +147,10 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
-        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c4\&apos;e8\&apos;f1\&apos;ea \&apos;c1\&apos;ee\&apos;eb\&apos;f2\&apos;ee\&apos;ed\&apos;e0\par
-        ///
-        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\*\shppict{\pict{\*\picprop}\emfblip\picw344\pich194\picwgoal6720\pichgoal6516 
-        ///010000006c00000000000000000000000f030000fa0200000000000000000000cd360000783500
-        ///0020454d4600000100 [остаток строки не уместился]&quot;;.
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1033\b\fs28\u1044?\u1080?\u1089?\u1082? \u1041?\u1086?\u1083?\u1090?\u1086?\u1085?\u1072?\lang1049\f1\par
+        ///\pard\sa200\sl240\slmult1\qc\lang9\b0\f2\fs22{\pict\wmetafile8\picw344\pich194\picwgoal6720\pichgoal6516 
+        ///0100090000034d0c2000000029b10d000000161000002606 [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string Диск_Болтона {
             get {
@@ -154,13 +159,10 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
-        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;d8\&apos;e8\&apos;f4\&apos;f0\&apos;e0\&apos;f2\&apos;ee\&apos;f0 \&apos;c2\&apos;ee\&apos;e4\&apos;f1\&apos;e2\&apos;ee\&apos;f0\&apos;e4\&apos;e0\par
-        ///
-        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\pict{\*\picprop}\wmetafile8\picw29189\pich22373\picwgoal8304\pichgoal6360 
-        ///010009000003166321000000f762210000000400000003010800050000000c02dffb6305050000
-        ///000b020000000005000000070104000000f [остаток строки не уместился]&quot;;.
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f2\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1033\b\fs28\u1064?\u1080?\u1092?\u1088?\u1072?\u1090?\u1086?\u1088? \u1042?\u1086?\u1076?\u1089?\u1074?\u1086?\u1088?\u1076?\u1072?\lang1049\f1\par
+        ///\pard\sa200\sl240\slmult1\qc\lang9\b0\f2\fs22{\pict\wmetafile8\picw29189\pich22373\picwgoal8304\pichgoal6360 
+        ///01 [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string Диск_Д_Водсворда {
             get {
@@ -169,13 +171,11 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
-        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;c4\&apos;e8\&apos;f1\&apos;ea\&apos;e8 \&apos;d7.\&apos;d3\&apos;e8\&apos;f2\&apos;f1\&apos;f2\&apos;ee\&apos;ed\&apos;e0 \&apos;e8 \&apos;cf\&apos;eb\&apos;e5\&apos;f2\&apos;f2\&apos;e0\par
-        ///
-        ///\pard\sa200\sl240\slmult1\b0\fs24{\pict{\*\picprop}\wmetafile8\picw26797\pich29337\picwgoal4308\pichgoal4752 
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1033\b\fs28\u1044?\u1080?\u1089?\u1082?\u1080? \u1063?.\u1059?\u1080?\u1090?\u1089?\u1090?\u1086?\u1085?\u1072? \u1080? \u1055?\u1083?\u1077?\u1090?\u1090?\u1072?\par
+        ///\pard\sa200\sl240\slmult1\lang9\b0\fs22{\pict\wmetafile8\picw26797\pich29337\picwgoal4308\pichgoal4752 
         ///01000900000316ba06000000edb9060000000400000003010800050000000b0200000000050000
-        ///000c026a05f20403000 [остаток строки не уместился]&quot;;.
+        ///000c026 [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string Диски_Ч_Уитстона_и_Плетта {
             get {
@@ -184,10 +184,12 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Машина фон Крихи
-        ///  
-        ///Kryha Standart (слева) и Kryha Liliput(справа)
-        ///Машина, созданная Алексадром фон Крихой в 1924 году, была названа Kryha Standart. Она являлась простым шифратором, имеющим два диска с одинаковыми алфавитами, однако она автоматически вращала их и печатала зашифрованные символы. Однако из-за того, что последовательность вращений была неизменна на каждой машине, шифр не был криптостойким, так как таких последовательностей было немного и их можно было быстро перебрать. Это свойство негативн [остаток строки не уместился]&quot;;.
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset0 Courier New;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\qc\lang1033\fs28\u1052?\u1072?\u1096?\u1080?\u1085?\u1072? \u1092?\u1086?\u1085? \u1050?\u1088?\u1080?\u1093?\u1080?\fs22\par
+        /// \par
+        ///\pard\sl240\slmult1\lang9\f1{\pict\wmetafile8\picw15875\pich11906\picwgoal4005\pichgoal4305 
+        ///010009000003482e06000000292e060000000400000003010800050000000c023efe5802050000
+        ///000b0 [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string Машина_фон_Крихи {
             get {
@@ -196,16 +198,13 @@ namespace Cipher.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset204 Times New Roman;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset0 Calibri;}}
-        ///{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
-        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;d3\&apos;f1\&apos;f2\&apos;f0\&apos;ee\&apos;e9\&apos;f1\&apos;f2\&apos;e2\&apos;ee \&apos;c4\&apos;e6.\&apos;d4\&apos;ee\&apos;ed\&apos;f2\&apos;e0\&apos;ed\&apos;e0\par
-        ///
-        ///\pard\sa200\sl240\slmult1\qc\b0\fs24{\pict{\*\picprop}\wmetafile8\picw22331\pich25294\picwgoal5544\pichgoal6288 
-        ///0100090000035ae21c00000031e21c0000000400000003010800050000000b0200000 [остаток строки не уместился]&quot;;.
+        ///   Ищет локализованную строку, похожую на {\rtf1\ansi\ansicpg1251\deff0{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset204{\*\fname Arial;}Arial CYR;}{\f2\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f3\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1033\b\fs28\u1059?\u1089?\u1090?\u1088?\u1086?\u1081?\u1089?\u1090?\u1074?\u1086? \u1044?\u1078?.\u1060?\u1086?\u1085?\u1090?\u1072?\u1085?\lang1049\f1\&apos;fb\f2\par
+        ///\pard\sa200\sl240\slmult1\qc\lang9\b0\f3\fs22{\pi [остаток строки не уместился]&quot;;.
         /// </summary>
-        internal static string Устройство_Дж_Фонтана {
+        internal static string Устройство_Дж_Фонтаны {
             get {
-                return ResourceManager.GetString("Устройство_Дж_Фонтана", resourceCulture);
+                return ResourceManager.GetString("Устройство_Дж_Фонтаны", resourceCulture);
             }
         }
     }

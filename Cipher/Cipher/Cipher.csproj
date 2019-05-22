@@ -69,7 +69,6 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CipherType.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +112,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\History\Code-O-Graph.rtf" />
+    <None Include="Resources\History\Датские часы-шифратор.rtf" />
     <None Include="Resources\History\Диск А. Майера.rtf" />
     <None Include="Resources\History\Диск А.Майера.rtf" />
     <None Include="Resources\History\Диск Альберти.rtf" />

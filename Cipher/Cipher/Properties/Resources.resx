@@ -136,8 +136,8 @@
   <data name="Диск_Альберти" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\History\Диск Альберти.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="Устройство_Дж_Фонтана" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\History\Устройство Дж.Фонтана.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  <data name="Устройство_Дж_Фонтаны" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History\Устройство Дж.Фонтаны.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
   <data name="Диск_Д_Водсворда" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\History\Диск Д.Водсворда.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
@@ -153,5 +153,8 @@
   </data>
   <data name="Машина_фон_Крихи" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\History\Машина фон Крихи.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Датские_часы_шифратор" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History\Датские часы-шифратор.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
 </root>
